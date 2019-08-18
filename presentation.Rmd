@@ -1,0 +1,103 @@
+---
+title: Red Files
+output:
+  pdf_document:
+    keep_tex: true
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(plotly)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(xlsx)
+library(DT)
+library(bootstrap)
+```
+
+## Accounts
+
+Relation account (4500 objects in the file ACCOUNT.ASC) each record describes static characteristics of an account:
+
+```{r, echo = FALSE, warning=FALSE, error = FALSE}
+### Account frame
+#Load csv
+account <- read.csv2("account.asc",dec = '.')  
+#Get date to columns
+account <- mutate(account,date = lubridate::make_date(
+                  year = paste("19",substring(date,1,2),sep = ""),
+                  month = substring(date,3,4),
+                  day =substring(date,5,6)))
+
+
+
+#Translate names
+l1 <- list(
+  "POPLATEK MESICNE"= "monthly",
+  "POPLATEK TYDNE"="weekly",
+  "POPLATEK PO OBRATU" ="after transaction")
+account <- mutate(account, frequency = l1[frequency])
+datatable(account, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
+```
+
+## Clients
+
+Relation client (5369 objects in the file CLIENT.ASC) each record describes characteristics of a client:
+
+```{r echo = FALSE, warning=FALSE, error = FALSE}
+#Load csv
+client <- read.csv2("client.asc",dec = '.',stringsAsFactors = FALSE)  
+#Get gender
+client <- mutate(client, 
+    gender_code = ifelse(as.numeric(substring(birth_number,3,4)) < 50,0,1),
+    gender = ifelse(as.numeric(substring(birth_number,3,4)) < 50,'M','W')
+    )
+#Get birth date
+client <- mutate(client, birth_date = lubridate::make_date(
+    year = paste("19",substring(birth_number,1,2),sep = ""),
+    month = as.numeric(substring(birth_number,3,4))-50*gender_code,
+    day =substring(birth_number,5,6)  
+))
+datatable(client, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
+```
+
+## Disposition
+
+Relation disposition (5369 objects in the file DISP.ASC) each record relates together a client with an account i.e. this relation describes the rights of clients to operate accounts:
+
+```{r echo = FALSE, warning=FALSE, error = FALSE}
+disposition <- read.csv2("disp.asc",dec = '.',stringsAsFactors = FALSE)
+datatable(disposition, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
+```
+
+## Order
+
+Relation permanent order (6471 objects in the file ORDER.ASC) each record describes characteristics of a payment order:
+
+```{r echo = FALSE, warning=FALSE, error = FALSE}
+order <- read.csv2("order.asc",dec = '.')  
+#Translate names
+l2 <- list(
+  "POJISTNE"='insurrance',
+  "SIPO"='household',
+  "LEASING"='leasing',
+  "UVER"='loan'
+)
+order <- mutate(order, k_symbol = l2[k_symbol])
+#datatable(order, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T))
+```
+
+
+
+```{r echo = FALSE, warning=FALSE, error = FALSE}
+
+```
+
+```{r echo = FALSE, warning=FALSE, error = FALSE}
+
+```
+

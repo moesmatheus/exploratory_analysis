@@ -24,7 +24,7 @@ Relation account (4500 objects in the file ACCOUNT.ASC) each record describes st
 ```{r, echo = FALSE, warning=FALSE, error = FALSE}
 ### Account frame
 #Load csv
-account <- read.csv2("account.asc",dec = '.')  
+account <- read.csv2("inputs/account.asc",dec = '.')  
 #Get date to columns
 account <- mutate(account,date = lubridate::make_date(
                   year = paste("19",substring(date,1,2),sep = ""),
@@ -39,7 +39,7 @@ l1 <- list(
   "POPLATEK TYDNE"="weekly",
   "POPLATEK PO OBRATU" ="after transaction")
 account <- mutate(account, frequency = l1[frequency])
-save(account,file = 'account')
+save(account,file = 'processed_files/account')
 datatable(account, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 
@@ -49,7 +49,7 @@ Relation client (5369 objects in the file CLIENT.ASC) each record describes char
 
 ```{r echo = FALSE, warning=FALSE, error = FALSE}
 #Load csv
-client <- read.csv2("client.asc",dec = '.',stringsAsFactors = FALSE)  
+client <- read.csv2("inputs/client.asc",dec = '.',stringsAsFactors = FALSE)  
 #Get gender
 client <- mutate(client, 
     gender_code = ifelse(as.numeric(substring(birth_number,3,4)) < 50,0,1),
@@ -61,7 +61,7 @@ client <- mutate(client, birth_date = lubridate::make_date(
     month = as.numeric(substring(birth_number,3,4))-50*gender_code,
     day =substring(birth_number,5,6)  
 ))
-save(client, file = 'client')
+save(client, file = 'processed_files/client')
 datatable(client, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 
@@ -70,8 +70,8 @@ datatable(client, rownames = FALSE, filter="top", options = list(pageLength = 5,
 Relation disposition (5369 objects in the file DISP.ASC) each record relates together a client with an account i.e. this relation describes the rights of clients to operate accounts:
 
 ```{r echo = FALSE, warning=FALSE, error = FALSE}
-disposition <- read.csv2("disp.asc",dec = '.',stringsAsFactors = FALSE)
-save(disposition, file = 'disposition')
+disposition <- read.csv2("inputs/disp.asc",dec = '.',stringsAsFactors = FALSE)
+save(disposition, file = 'processed_files/disposition')
 datatable(disposition, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 
@@ -80,7 +80,7 @@ datatable(disposition, rownames = FALSE, filter="top", options = list(pageLength
 Relation permanent order (6471 objects in the file ORDER.ASC) each record describes characteristics of a payment order:
 
 ```{r echo = FALSE, warning=FALSE, error = FALSE}
-order <- read.csv2("order.asc",dec = '.')  
+order <- read.csv2("inputs/order.asc",dec = '.')  
 #Translate names
 l2 <- list(
   "POJISTNE"='insurrance',

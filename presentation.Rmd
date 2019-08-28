@@ -1,8 +1,6 @@
 ---
-title: Red Files
+title: Read Files
 output:
-  pdf_document:
-    keep_tex: true
   html_document:
     toc: true
 ---
@@ -41,6 +39,7 @@ l1 <- list(
   "POPLATEK TYDNE"="weekly",
   "POPLATEK PO OBRATU" ="after transaction")
 account <- mutate(account, frequency = l1[frequency])
+save(account,file = 'account')
 datatable(account, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 
@@ -62,6 +61,7 @@ client <- mutate(client, birth_date = lubridate::make_date(
     month = as.numeric(substring(birth_number,3,4))-50*gender_code,
     day =substring(birth_number,5,6)  
 ))
+save(client, file = 'client')
 datatable(client, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 
@@ -71,6 +71,7 @@ Relation disposition (5369 objects in the file DISP.ASC) each record relates tog
 
 ```{r echo = FALSE, warning=FALSE, error = FALSE}
 disposition <- read.csv2("disp.asc",dec = '.',stringsAsFactors = FALSE)
+save(disposition, file = 'disposition')
 datatable(disposition, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 

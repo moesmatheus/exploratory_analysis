@@ -9,7 +9,6 @@ library(knitr)
 library(tidyr)
 library(dplyr)
 library(lubridate)
-library(bootstrap)
 library(plyr)
 ```
 

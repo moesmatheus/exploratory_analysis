@@ -15,6 +15,10 @@ library(reshape2)
 #select(transaction, account_id, date, k_symbol , amount ) %>%
 #  reshape2::dcast(account_id + date ~ k_symbol, value.var = "amount")
 
-transaction %>% 
-  select(account_id, k_symbol , amount ) %>%
-    group_by(account_id, k_symbol)
+#transaction %>% 
+#  select(account_id, k_symbol , amount ) %>%
+#    group_by(account_id, k_symbol)
+
+#t <- read.csv2('Inputs/trans.asc')
+
+x <- t %>% group_by(operation,type) %>% summarise(amount = n())

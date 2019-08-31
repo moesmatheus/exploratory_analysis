@@ -1,0 +1,12 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="https://github.com/moesmatheus/exploratory_analysis" target="blank">Exploratory Analysis Project</a></li>
+    download: ["pdf", "epub"]
+    sharing:
+      github: no
+      facebook: no
+      twitter: no
+

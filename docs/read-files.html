@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Read Files | Exploratory Analysis Project</title>
+  <meta name="description" content="This project is part of a lesson from FGV’s MBA on Business Analytics and Big Data." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Read Files | Exploratory Analysis Project" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This project is part of a lesson from FGV’s MBA on Business Analytics and Big Data." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Read Files | Exploratory Analysis Project" />
+  
+  <meta name="twitter:description" content="This project is part of a lesson from FGV’s MBA on Business Analytics and Big Data." />
+  
+
+<meta name="author" content="Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg" />
+
+
+<meta name="date" content="2019-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="join-frames.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://github.com/moesmatheus/exploratory_analysis" target="blank">Exploratory Analysis Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="read-files.html"><a href="read-files.html"><i class="fa fa-check"></i><b>2</b> Read Files</a><ul>
+<li class="chapter" data-level="2.1" data-path="read-files.html"><a href="read-files.html#accounts"><i class="fa fa-check"></i><b>2.1</b> Accounts</a></li>
+<li class="chapter" data-level="2.2" data-path="read-files.html"><a href="read-files.html#clients"><i class="fa fa-check"></i><b>2.2</b> Clients</a></li>
+<li class="chapter" data-level="2.3" data-path="read-files.html"><a href="read-files.html#disposition"><i class="fa fa-check"></i><b>2.3</b> Disposition</a></li>
+<li class="chapter" data-level="2.4" data-path="read-files.html"><a href="read-files.html#order"><i class="fa fa-check"></i><b>2.4</b> Order</a></li>
+<li class="chapter" data-level="2.5" data-path="read-files.html"><a href="read-files.html#transactions"><i class="fa fa-check"></i><b>2.5</b> Transactions</a></li>
+<li class="chapter" data-level="2.6" data-path="read-files.html"><a href="read-files.html#loans"><i class="fa fa-check"></i><b>2.6</b> Loans</a></li>
+<li class="chapter" data-level="2.7" data-path="read-files.html"><a href="read-files.html#credit-card"><i class="fa fa-check"></i><b>2.7</b> Credit Card</a></li>
+<li class="chapter" data-level="2.8" data-path="read-files.html"><a href="read-files.html#demographic-data"><i class="fa fa-check"></i><b>2.8</b> Demographic data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="join-frames.html"><a href="join-frames.html"><i class="fa fa-check"></i><b>3</b> Join Frames</a><ul>
+<li class="chapter" data-level="3.1" data-path="join-frames.html"><a href="join-frames.html#join-frames-without-transactions"><i class="fa fa-check"></i><b>3.1</b> Join frames without transactions</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploratory Analysis Project</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="read-files" class="section level1">
+<h1><span class="header-section-number">2</span> Read Files</h1>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## You have loaded plyr after dplyr - this is likely to cause problems.
+## If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+## library(plyr); library(dplyr)</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
+<pre><code>## 
+## Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:lubridate&#39;:
+## 
+##     here</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<div class="figure">
+<img src="dados.png" alt="data" />
+<p class="caption">data</p>
+</div>
+<div id="accounts" class="section level2">
+<h2><span class="header-section-number">2.1</span> Accounts</h2>
+<p>Relation account (4500 objects in the file ACCOUNT.ASC) each record describes static characteristics of an account:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 2.1: </span>accounts frame</caption>
+<thead>
+<tr class="header">
+<th align="right">account_id</th>
+<th align="right">district_id</th>
+<th align="left">frequency</th>
+<th align="left">date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">576</td>
+<td align="right">55</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-01</td>
+</tr>
+<tr class="even">
+<td align="right">3818</td>
+<td align="right">74</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-01</td>
+</tr>
+<tr class="odd">
+<td align="right">704</td>
+<td align="right">55</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-01</td>
+</tr>
+<tr class="even">
+<td align="right">2378</td>
+<td align="right">16</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-01</td>
+</tr>
+<tr class="odd">
+<td align="right">2632</td>
+<td align="right">24</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-02</td>
+</tr>
+<tr class="even">
+<td align="right">1972</td>
+<td align="right">77</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-02</td>
+</tr>
+<tr class="odd">
+<td align="right">1539</td>
+<td align="right">1</td>
+<td align="left">after transaction</td>
+<td align="left">1993-01-03</td>
+</tr>
+<tr class="even">
+<td align="right">793</td>
+<td align="right">47</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-03</td>
+</tr>
+<tr class="odd">
+<td align="right">2484</td>
+<td align="right">74</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-03</td>
+</tr>
+<tr class="even">
+<td align="right">1695</td>
+<td align="right">76</td>
+<td align="left">monthly</td>
+<td align="left">1993-01-03</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="clients" class="section level2">
+<h2><span class="header-section-number">2.2</span> Clients</h2>
+<p>Relation client (5369 objects in the file CLIENT.ASC) each record describes characteristics of a client:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 2.2: </span>clients frame</caption>
+<thead>
+<tr class="header">
+<th align="right">client_id</th>
+<th align="right">birth_number</th>
+<th align="right">district_id</th>
+<th align="right">gender_code</th>
+<th align="left">gender</th>
+<th align="left">birth_date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">706213</td>
+<td align="right">18</td>
+<td align="right">1</td>
+<td align="left">W</td>
+<td align="left">1970-12-13</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">450204</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="left">M</td>
+<td align="left">1945-02-04</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">406009</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">W</td>
+<td align="left">1940-10-09</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">561201</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="left">M</td>
+<td align="left">1956-12-01</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">605703</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="left">W</td>
+<td align="left">1960-07-03</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">190922</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="left">M</td>
+<td align="left">1919-09-22</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">290125</td>
+<td align="right">15</td>
+<td align="right">0</td>
+<td align="left">M</td>
+<td align="left">1929-01-25</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">385221</td>
+<td align="right">51</td>
+<td align="right">1</td>
+<td align="left">W</td>
+<td align="left">1938-02-21</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">351016</td>
+<td align="right">60</td>
+<td align="right">0</td>
+<td align="left">M</td>
+<td align="left">1935-10-16</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">430501</td>
+<td align="right">57</td>
+<td align="right">0</td>
+<td align="left">M</td>
+<td align="left">1943-05-01</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="disposition" class="section level2">
+<h2><span class="header-section-number">2.3</span> Disposition</h2>
+<p>Relation disposition (5369 objects in the file DISP.ASC) each record relates together a client with an account i.e. this relation describes the rights of clients to operate accounts:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 2.3: </span>disposition frame</caption>
+<thead>
+<tr class="header">
+<th align="right">disp_id</th>
+<th align="right">client_id</th>
+<th align="right">account_id</th>
+<th align="left">type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="left">DISPONENT</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="left">DISPONENT</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">7</td>
+<td align="left">OWNER</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">8</td>
+<td align="left">OWNER</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="order" class="section level2">
+<h2><span class="header-section-number">2.4</span> Order</h2>
+<p>Relation permanent order (6471 objects in the file ORDER.ASC) each record describes characteristics of a payment order:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-7">Table 2.4: </span>order frame</caption>
+<thead>
+<tr class="header">
+<th align="right">order_id</th>
+<th align="right">account_id</th>
+<th align="left">bank_to</th>
+<th align="right">account_to</th>
+<th align="right">amount</th>
+<th align="left">k_symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">29401</td>
+<td align="right">1</td>
+<td align="left">YZ</td>
+<td align="right">87144583</td>
+<td align="right">2452.0</td>
+<td align="left">household</td>
+</tr>
+<tr class="even">
+<td align="right">29402</td>
+<td align="right">2</td>
+<td align="left">ST</td>
+<td align="right">89597016</td>
+<td align="right">3372.7</td>
+<td align="left">loan</td>
+</tr>
+<tr class="odd">
+<td align="right">29403</td>
+<td align="right">2</td>
+<td align="left">QR</td>
+<td align="right">13943797</td>
+<td align="right">7266.0</td>
+<td align="left">household</td>
+</tr>
+<tr class="even">
+<td align="right">29404</td>
+<td align="right">3</td>
+<td align="left">WX</td>
+<td align="right">83084338</td>
+<td align="right">1135.0</td>
+<td align="left">household</td>
+</tr>
+<tr class="odd">
+<td align="right">29405</td>
+<td align="right">3</td>
+<td align="left">CD</td>
+<td align="right">24485939</td>
+<td align="right">327.0</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="right">29406</td>
+<td align="right">3</td>
+<td align="left">AB</td>
+<td align="right">59972357</td>
+<td align="right">3539.0</td>
+<td align="left">insurrance</td>
+</tr>
+<tr class="odd">
+<td align="right">29407</td>
+<td align="right">4</td>
+<td align="left">UV</td>
+<td align="right">26693541</td>
+<td align="right">2078.0</td>
+<td align="left">household</td>
+</tr>
+<tr class="even">
+<td align="right">29408</td>
+<td align="right">4</td>
+<td align="left">UV</td>
+<td align="right">5848086</td>
+<td align="right">1285.0</td>
+<td align="left">household</td>
+</tr>
+<tr class="odd">
+<td align="right">29409</td>
+<td align="right">5</td>
+<td align="left">GH</td>
+<td align="right">37390208</td>
+<td align="right">2668.0</td>
+<td align="left">household</td>
+</tr>
+<tr class="even">
+<td align="right">29410</td>
+<td align="right">6</td>
+<td align="left">AB</td>
+<td align="right">44486999</td>
+<td align="right">3954.0</td>
+<td align="left">household</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="transactions" class="section level2">
+<h2><span class="header-section-number">2.5</span> Transactions</h2>
+<p>Relation transaction (1056320 objects in the file TRANS.ASC) each record describes one transaction on an account:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-8">Table 2.5: </span>transaction frame</caption>
+<thead>
+<tr class="header">
+<th align="right">trans_id</th>
+<th align="right">account_id</th>
+<th align="left">date</th>
+<th align="left">type</th>
+<th align="left">operation</th>
+<th align="right">amount</th>
+<th align="right">balance</th>
+<th align="left">k_symbol</th>
+<th align="left">bank</th>
+<th align="right">account</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">695247</td>
+<td align="right">2378</td>
+<td align="left">1993-01-01</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">700</td>
+<td align="right">700</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">171812</td>
+<td align="right">576</td>
+<td align="left">1993-01-01</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">900</td>
+<td align="right">900</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">207264</td>
+<td align="right">704</td>
+<td align="left">1993-01-01</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">1000</td>
+<td align="right">1000</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1117247</td>
+<td align="right">3818</td>
+<td align="left">1993-01-01</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">600</td>
+<td align="right">600</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">579373</td>
+<td align="right">1972</td>
+<td align="left">1993-01-02</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">400</td>
+<td align="right">400</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">771035</td>
+<td align="right">2632</td>
+<td align="left">1993-01-02</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">1100</td>
+<td align="right">1100</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">452728</td>
+<td align="right">1539</td>
+<td align="left">1993-01-03</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">600</td>
+<td align="right">600</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">725751</td>
+<td align="right">2484</td>
+<td align="left">1993-01-03</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">1100</td>
+<td align="right">1100</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">497211</td>
+<td align="right">1695</td>
+<td align="left">1993-01-03</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">200</td>
+<td align="right">200</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">232960</td>
+<td align="right">793</td>
+<td align="left">1993-01-03</td>
+<td align="left">credit</td>
+<td align="left">credit in cash</td>
+<td align="right">800</td>
+<td align="right">800</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="loans" class="section level2">
+<h2><span class="header-section-number">2.6</span> Loans</h2>
+<p>Relation loan (682 objects in the file LOAN.ASC) each record describes a loan granted for a given account:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 2.6: </span>loan frame</caption>
+<thead>
+<tr class="header">
+<th align="right">loan_id</th>
+<th align="right">account_id</th>
+<th align="left">date</th>
+<th align="right">amount</th>
+<th align="right">duration</th>
+<th align="right">payments</th>
+<th align="left">status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">5314</td>
+<td align="right">1787</td>
+<td align="left">1993-07-05</td>
+<td align="right">96396</td>
+<td align="right">12</td>
+<td align="right">8033</td>
+<td align="left">B</td>
+</tr>
+<tr class="even">
+<td align="right">5316</td>
+<td align="right">1801</td>
+<td align="left">1993-07-11</td>
+<td align="right">165960</td>
+<td align="right">36</td>
+<td align="right">4610</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="right">6863</td>
+<td align="right">9188</td>
+<td align="left">1993-07-28</td>
+<td align="right">127080</td>
+<td align="right">60</td>
+<td align="right">2118</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">5325</td>
+<td align="right">1843</td>
+<td align="left">1993-08-03</td>
+<td align="right">105804</td>
+<td align="right">36</td>
+<td align="right">2939</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="right">7240</td>
+<td align="right">11013</td>
+<td align="left">1993-09-06</td>
+<td align="right">274740</td>
+<td align="right">60</td>
+<td align="right">4579</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">6687</td>
+<td align="right">8261</td>
+<td align="left">1993-09-13</td>
+<td align="right">87840</td>
+<td align="right">24</td>
+<td align="right">3660</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="right">7284</td>
+<td align="right">11265</td>
+<td align="left">1993-09-15</td>
+<td align="right">52788</td>
+<td align="right">12</td>
+<td align="right">4399</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">6111</td>
+<td align="right">5428</td>
+<td align="left">1993-09-24</td>
+<td align="right">174744</td>
+<td align="right">24</td>
+<td align="right">7281</td>
+<td align="left">B</td>
+</tr>
+<tr class="odd">
+<td align="right">7235</td>
+<td align="right">10973</td>
+<td align="left">1993-10-13</td>
+<td align="right">154416</td>
+<td align="right">48</td>
+<td align="right">3217</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">5997</td>
+<td align="right">4894</td>
+<td align="left">1993-11-04</td>
+<td align="right">117024</td>
+<td align="right">24</td>
+<td align="right">4876</td>
+<td align="left">A</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="credit-card" class="section level2">
+<h2><span class="header-section-number">2.7</span> Credit Card</h2>
+<p>Relation credit card (892 objects in the file CARD.ASC) each record describes a credit card issued to an account:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-10">Table 2.7: </span>card frame</caption>
+<thead>
+<tr class="header">
+<th align="right">card_id</th>
+<th align="right">disp_id</th>
+<th align="left">type</th>
+<th align="left">issued</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1005</td>
+<td align="right">9285</td>
+<td align="left">classic</td>
+<td align="left">1993-11-07</td>
+</tr>
+<tr class="even">
+<td align="right">104</td>
+<td align="right">588</td>
+<td align="left">classic</td>
+<td align="left">1994-01-19</td>
+</tr>
+<tr class="odd">
+<td align="right">747</td>
+<td align="right">4915</td>
+<td align="left">classic</td>
+<td align="left">1994-02-05</td>
+</tr>
+<tr class="even">
+<td align="right">70</td>
+<td align="right">439</td>
+<td align="left">classic</td>
+<td align="left">1994-02-08</td>
+</tr>
+<tr class="odd">
+<td align="right">577</td>
+<td align="right">3687</td>
+<td align="left">classic</td>
+<td align="left">1994-02-15</td>
+</tr>
+<tr class="even">
+<td align="right">377</td>
+<td align="right">2429</td>
+<td align="left">classic</td>
+<td align="left">1994-03-03</td>
+</tr>
+<tr class="odd">
+<td align="right">721</td>
+<td align="right">4680</td>
+<td align="left">junior</td>
+<td align="left">1994-04-05</td>
+</tr>
+<tr class="even">
+<td align="right">437</td>
+<td align="right">2762</td>
+<td align="left">classic</td>
+<td align="left">1994-06-01</td>
+</tr>
+<tr class="odd">
+<td align="right">188</td>
+<td align="right">1146</td>
+<td align="left">classic</td>
+<td align="left">1994-06-19</td>
+</tr>
+<tr class="even">
+<td align="right">13</td>
+<td align="right">87</td>
+<td align="left">classic</td>
+<td align="left">1994-06-29</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="demographic-data" class="section level2">
+<h2><span class="header-section-number">2.8</span> Demographic data</h2>
+<p>Relation demographic data (77 objects in the file DISTRICT.ASC) each record describes demographic characteristics of a district:</p>
+<table>
+<caption><span id="tab:unnamed-chunk-11">Table 2.8: </span>demographic frame</caption>
+<thead>
+<tr class="header">
+<th align="right">district_id</th>
+<th align="left">district_name</th>
+<th align="left">region</th>
+<th align="right">inhabitants</th>
+<th align="right">n_size_1</th>
+<th align="right">n_size_2</th>
+<th align="right">n_size_3</th>
+<th align="right">n_size_4</th>
+<th align="right">n_cities</th>
+<th align="right">ratio of urban inhabitants</th>
+<th align="right">average salary</th>
+<th align="left">unemploymant rate ’95</th>
+<th align="right">unemploymant rate ’96</th>
+<th align="right">enterpreneurs per 1000 inhabitants</th>
+<th align="left">commited crimes ’95</th>
+<th align="right">commited crimes ’96</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Hl.m. Praha</td>
+<td align="left">Prague</td>
+<td align="right">1204953</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">100.0</td>
+<td align="right">12541</td>
+<td align="left">0.29</td>
+<td align="right">0.43</td>
+<td align="right">167</td>
+<td align="left">85677</td>
+<td align="right">99107</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Benesov</td>
+<td align="left">central Bohemia</td>
+<td align="right">88884</td>
+<td align="right">80</td>
+<td align="right">26</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">46.7</td>
+<td align="right">8507</td>
+<td align="left">1.67</td>
+<td align="right">1.85</td>
+<td align="right">132</td>
+<td align="left">2159</td>
+<td align="right">2674</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Beroun</td>
+<td align="left">central Bohemia</td>
+<td align="right">75232</td>
+<td align="right">55</td>
+<td align="right">26</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">41.7</td>
+<td align="right">8980</td>
+<td align="left">1.95</td>
+<td align="right">2.21</td>
+<td align="right">111</td>
+<td align="left">2824</td>
+<td align="right">2813</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Kladno</td>
+<td align="left">central Bohemia</td>
+<td align="right">149893</td>
+<td align="right">63</td>
+<td align="right">29</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">67.4</td>
+<td align="right">9753</td>
+<td align="left">4.64</td>
+<td align="right">5.05</td>
+<td align="right">109</td>
+<td align="left">5244</td>
+<td align="right">5892</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Kolin</td>
+<td align="left">central Bohemia</td>
+<td align="right">95616</td>
+<td align="right">65</td>
+<td align="right">30</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">51.4</td>
+<td align="right">9307</td>
+<td align="left">3.85</td>
+<td align="right">4.43</td>
+<td align="right">118</td>
+<td align="left">2616</td>
+<td align="right">3040</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Kutna Hora</td>
+<td align="left">central Bohemia</td>
+<td align="right">77963</td>
+<td align="right">60</td>
+<td align="right">23</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">51.5</td>
+<td align="right">8546</td>
+<td align="left">2.95</td>
+<td align="right">4.02</td>
+<td align="right">126</td>
+<td align="left">2640</td>
+<td align="right">3120</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Melnik</td>
+<td align="left">central Bohemia</td>
+<td align="right">94725</td>
+<td align="right">38</td>
+<td align="right">28</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">63.4</td>
+<td align="right">9920</td>
+<td align="left">2.26</td>
+<td align="right">2.87</td>
+<td align="right">130</td>
+<td align="left">4289</td>
+<td align="right">4846</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Mlada Boleslav</td>
+<td align="left">central Bohemia</td>
+<td align="right">112065</td>
+<td align="right">95</td>
+<td align="right">19</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">69.4</td>
+<td align="right">11277</td>
+<td align="left">1.25</td>
+<td align="right">1.44</td>
+<td align="right">127</td>
+<td align="left">5179</td>
+<td align="right">4987</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Nymburk</td>
+<td align="left">central Bohemia</td>
+<td align="right">81344</td>
+<td align="right">61</td>
+<td align="right">23</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">55.3</td>
+<td align="right">8899</td>
+<td align="left">3.39</td>
+<td align="right">3.97</td>
+<td align="right">149</td>
+<td align="left">2987</td>
+<td align="right">2487</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Praha - vychod</td>
+<td align="left">central Bohemia</td>
+<td align="right">92084</td>
+<td align="right">55</td>
+<td align="right">29</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">46.7</td>
+<td align="right">10124</td>
+<td align="left">0.56</td>
+<td align="right">0.54</td>
+<td align="right">141</td>
+<td align="left">3810</td>
+<td align="right">4316</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="join-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["bookdown.pdf", "bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

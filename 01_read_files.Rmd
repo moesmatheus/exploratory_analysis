@@ -1,0 +1,190 @@
+#Read Files
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyr)
+library(dplyr)
+library(lubridate)
+library(plyr)
+```
+
+![data](dados.png)
+
+## Accounts
+
+Relation account (4500 objects in the file ACCOUNT.ASC) each record describes static characteristics of an account:
+
+```{r echo = FALSE}
+### Account frame
+#Load csv
+account <- read.csv2("inputs/account.asc",dec = '.')  
+#Get date to columns
+account <- mutate(account,date = lubridate::make_date(
+                  year = paste("19",substring(date,1,2),sep = ""),
+                  month = substring(date,3,4),
+                  day =substring(date,5,6)))
+
+
+
+#Translate names
+plyr::revalue(account$frequency, c(
+  "POPLATEK MESICNE"= "monthly",
+  "POPLATEK TYDNE"="weekly",
+  "POPLATEK PO OBRATU" ="after transaction")) -> account$frequency
+
+save(account,file = 'processed_files/account')
+knitr::kable(account[1:10,], caption = 'accounts frame')
+#datatable(account, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
+```
+
+## Clients
+
+Relation client (5369 objects in the file CLIENT.ASC) each record describes characteristics of a client:
+
+```{r echo = FALSE}
+#Load csv
+client <- read.csv2("inputs/client.asc",dec = '.')  
+#Get gender
+client <- mutate(client, 
+    gender_code = ifelse(as.numeric(substring(birth_number,3,4)) < 50,0,1),
+    gender = ifelse(as.numeric(substring(birth_number,3,4)) < 50,'M','W')
+    )
+#Get birth date
+client <- mutate(client, birth_date = lubridate::make_date(
+    year = paste("19",substring(birth_number,1,2),sep = ""),
+    month = as.numeric(substring(birth_number,3,4))-50*gender_code,
+    day =substring(birth_number,5,6)  
+))
+save(client, file = 'processed_files/client')
+knitr::kable(client[1:10,], caption = 'clients frame')
+```
+
+## Disposition
+
+Relation disposition (5369 objects in the file DISP.ASC) each record relates together a client with an account i.e. this relation describes the rights of clients to operate accounts:
+
+```{r echo = FALSE}
+disposition <- read.csv2("inputs/disp.asc",dec = '.')
+knitr::kable(disposition[1:10,], caption = 'disposition frame')
+save(disposition, file = 'processed_files/disposition')
+```
+
+## Order
+
+Relation permanent order (6471 objects in the file ORDER.ASC) each record describes characteristics of a payment order:
+
+```{r echo = FALSE}
+order <- read.csv2("inputs/order.asc",dec = '.')  
+#Translate names
+
+plyr::revalue(order$k_symbol, c(
+  "POJISTNE"='insurrance',
+  "SIPO"='household',
+  "LEASING"='leasing',
+  "UVER"='loan'
+)) -> order$k_symbol
+
+save(order, file = 'processed_files/order')
+knitr::kable(order[1:10,], caption = 'order frame')
+```
+
+## Transactions
+
+Relation transaction (1056320 objects in the file TRANS.ASC) each record describes one transaction on an account:
+
+```{r echo = FALSE}
+
+### Transaction frame
+transaction <- read.csv2("inputs/trans.asc",dec = '.')
+
+#Get date
+transaction <- mutate(transaction,date = lubridate::make_date(
+  year = paste("19",substring(date,1,2),sep = ""),
+  month = substring(date,3,4),
+  day =substring(date,5,6)))
+
+#Translate type
+plyr::revalue(transaction$type, c(
+  "PRIJEM"='credit',
+  "VYDAJ"='debit'
+)) -> transaction$type
+
+#Translate operation
+plyr::revalue(transaction$operation, c(
+  "VYBER KARTOU"='credit card withdrawal',
+  "VKLAD" ='credit in cash',
+  "PREVOD Z UCTU"='collection from another bank',
+  "VYBER"='withdrawal in cash',
+  "PREVOD NA UCET"='remittance to another bank'
+)) -> transaction$operation
+
+#Translate symbol
+plyr::revalue(transaction$k_symbol, c(
+  "POJISTNE"='insurrance payment',
+  "SLUZBY"='payment for statement',
+  "UROK"= 'interest credited',
+  "SANKC. UROK"='sanction interest',
+  "SIPO"= 'household',
+  "DUCHOD"='old age pension',
+  "UVER"='loan payment'
+)) -> transaction$k_symbol
+
+save(transaction, file = 'processed_files/transaction')
+knitr::kable(transaction[1:10,], caption = 'transaction frame')
+```
+
+## Loans
+
+Relation loan (682 objects in the file LOAN.ASC) each record describes a loan granted for a given account:
+
+```{r echo = FALSE}
+### Loan frame
+loan <- read.csv2("inputs/loan.asc",dec = '.')
+#Get date
+loan <- mutate(loan,date = lubridate::make_date(
+  year = paste("19",substring(date,1,2),sep = ""),
+  month = substring(date,3,4),
+  day =substring(date,5,6)))
+
+save(loan, file = 'processed_files/loan')
+knitr::kable(loan[1:10,], caption = 'loan frame')
+```
+
+## Credit Card
+
+Relation credit card (892 objects in the file CARD.ASC) each record describes a credit card issued to an account:
+
+```{r echo = FALSE}
+
+### Credit card frame
+card <- read.csv2("inputs/card.asc",dec = '.')
+#Get date
+card <- mutate(card,issued = lubridate::make_date(
+  year = paste("19",substring(issued,1,2),sep = ""),
+  month = substring(issued,3,4),
+  day =substring(issued,5,6)))
+
+save(card, file = 'processed_files/card')
+knitr::kable(card[1:10,], caption = 'card frame')
+```
+
+## Demographic data
+
+
+Relation demographic data (77 objects in the file DISTRICT.ASC) each record describes demographic characteristics of a district:
+
+```{r echo = FALSE}
+
+demographic <- read.csv2("inputs/district.asc",dec = '.')
+#Change col names
+n <- c("district_id","district_name","region","inhabitants","n_size_1",
+       "n_size_2","n_size_3","n_size_4","n_cities","ratio of urban inhabitants",
+       "average salary","unemploymant rate '95","unemploymant rate '96",
+       "enterpreneurs per 1000 inhabitants","commited crimes '95","commited crimes '96")
+colnames(demographic) <- n
+
+save(demographic, file = 'processed_files/demographic')
+knitr::kable(demographic[1:10,], caption = 'demographic frame')
+```
+

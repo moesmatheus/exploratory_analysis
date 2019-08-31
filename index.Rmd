@@ -1,0 +1,28 @@
+--- 
+title: "Exploratory Analysis Project"
+author: "Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+biblio-style: apalike
+description: "This project is part of a lesson from FGV's MBA on Business Analytics and Big Data."
+
+---
+
+#Introduction
+
+This project is part of a lesson from FGV's MBA on Business Analytics and Big Data.
+
+```{r include = FALSE}
+
+# or the development version
+# devtools::install_github("rstudio/bookdown")
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

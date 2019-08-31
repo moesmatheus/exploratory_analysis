@@ -7,6 +7,7 @@ library(tidyr)
 library(dplyr)
 library(lubridate)
 library(plyr)
+dir.create('processed_files')
 ```
 
 ![data](dados.png)

@@ -1,6 +1,6 @@
 #Read Files
 
-```{r echo = FALSE}
+```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(tidyr)

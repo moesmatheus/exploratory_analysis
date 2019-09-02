@@ -43,12 +43,12 @@ p <- ggplot(data = frame_no_transaction) +
 ggplotly(p)
 ```
 
-##Acount cration by time
+##Acount creation by time
 ```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
 
 
 p <- ggplot(data = frame_no_transaction) +
-  geom_histogram(mapping = aes(x  = date.x),bins = 20, )  +
+  geom_histogram(mapping = aes(x  = date.x, fill = gender),bins = 20, )  +
   labs(x='Cration date',y = '')
 
 ggplotly(p)
@@ -63,8 +63,9 @@ ggplotly(p)
 
 
 p <- ggplot(data = mutate(frame_no_transaction,age_at_creation = (frame_no_transaction$date.x - frame_no_transaction$birth_date) / 365)) +
-  geom_histogram(mapping = aes(x  = age_at_creation),bins = 10, )  +
-  labs(x='Age at account creation',y = '')
+  geom_histogram(mapping = aes(x  = age_at_creation, fill = gender),bins = 10 )  +
+  labs(x='Age at account creation',y = '')+
+  scale_x_continuous()
 
 ggplotly(p)
 
@@ -90,7 +91,8 @@ ggplotly(p)
 p <- ggplot(
   data = frame_no_transaction %>% group_by(district_name) %>% summarise(clients = n(), inhabitants = mean(inhabitants), ratio_urban = mean(`ratio of urban inhabitants`), region = first(region)) %>% dplyr::filter(district_name !='Hl.m. Praha')
             ) +
-  geom_point(mapping = aes(x  = clients, y = inhabitants/1e3, name = district_name, size = ratio_urban, fill = region )) + 
+  geom_point(mapping = aes(x  = clients, y = inhabitants/1e3, name = district_name, size = ratio_urban, fill = region ),
+             alpha = 0.6) + 
   geom_smooth(method='lm',aes(x  = clients, y = inhabitants/1e3) ) +
   labs(x='Region',y = 'Inhabitants (thousands)')
 

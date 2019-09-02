@@ -42,7 +42,8 @@ ggplotly(p)
 
 p <- ggplot(data = mutate(f,age_at_loan = (f$date.y - f$birth_date) / 365)) +
   geom_histogram(mapping = aes(x  = age_at_loan, fill = status),bins = 10, )  +
-  labs(x='Age at Loan',y = '')
+  labs(x='Age at Loan',y = '') +
+  scale_x_continuous()
 
 ggplotly(p)
 
@@ -56,7 +57,8 @@ ggplotly(p)
 
 p <- ggplot(data = mutate(f,age_at_loan = (f$date.y - f$birth_date) / 365)) +
   geom_boxplot(mapping = aes(y  = age_at_loan, x = status, fill = status),bins = 10, )  +
-  labs(x='Age at Loan',y = '')
+  labs(x='Age at Loan',y = '') +
+  scale_y_continuous()
 
 ggplotly(p)
 

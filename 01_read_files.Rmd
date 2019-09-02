@@ -182,7 +182,7 @@ knitr::kable(card[1:10,], caption = 'card frame')
 
 Relation demographic data (77 objects in the file DISTRICT.ASC) each record describes demographic characteristics of a district:
 
-```{r echo = FALSE}
+```{r echo = FALSE, warning=FALSE, error=FALSE }
 
 demographic <- read.csv2("inputs/district.asc",dec = '.')
 #Change col names
@@ -196,6 +196,7 @@ colnames(demographic) <- n
 #demographic <- left_join(demographic,summarise(group_by(demographic,region), region_inhabitants = sum(inhabitants)), by = 'region')
 
 save(demographic, file = 'processed_files/demographic')
-knitr::kable(demographic[1:10,], caption = 'demographic frame')
+prev <- select(demographic, region, district_name, inhabitants)
+knitr::kable(prev[1:10,], caption = 'demographic frame')
 ```
 

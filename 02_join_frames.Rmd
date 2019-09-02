@@ -2,10 +2,14 @@
 
 ```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
 #knitr::opts_chunk$set(echo = TRUE)
+detach("package:plyr", unload=TRUE)
 detach("package:dplyr", unload=TRUE)
 library(knitr)
 library(tidyr)
+
 library(dplyr)
+#library(plyr)
+
 library(lubridate)
 library(magrittr)
 
@@ -35,7 +39,7 @@ frame_no_transaction <- account %>%
   #Join disposition
   left_join(
     dplyr::filter(disposition, type == 'OWNER' ) %>% 
-      left_join(disposition %>% group_by(account_id) %>% summarise(dependants = n()-1), by = 'account_id')
+      left_join(disposition %>% group_by(account_id) %>% dplyr::summarise(dependants = n()-1), by = 'account_id')
     , by = 'account_id') %>%
   #Join client
   left_join(client,by = 'client_id') %>%

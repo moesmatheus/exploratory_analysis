@@ -1,7 +1,7 @@
 #Read Files
 
 ```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
 library(tidyr)
 library(dplyr)
@@ -147,6 +147,13 @@ loan <- mutate(loan,date = lubridate::make_date(
   year = paste("19",substring(date,1,2),sep = ""),
   month = substring(date,3,4),
   day =substring(date,5,6)))
+
+plyr::revalue(loan$status, c(
+  "A"='Finished - OK',
+  "B"='Finished - not payed',
+  "C"= 'Running - OK',
+  "D"='Running - in Debt'
+)) -> loan$status
 
 save(loan, file = 'processed_files/loan')
 knitr::kable(loan[1:10,], caption = 'loan frame')

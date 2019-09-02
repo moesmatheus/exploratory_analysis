@@ -9,4 +9,6 @@ bookdown::gitbook:
       github: no
       facebook: no
       twitter: no
+#bookdown::epub_book: default
+
 

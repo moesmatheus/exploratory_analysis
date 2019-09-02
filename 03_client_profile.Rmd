@@ -1,0 +1,82 @@
+#Client Profile
+
+```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
+
+library(plotly)
+library(ggplot2)
+
+load('processed_files/frame_no_transaction')
+
+```
+
+##Birth Date
+```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+p <- ggplot(data = frame_no_transaction) +
+  geom_histogram(mapping = aes(x  = birth_date),bins = 20, )  +
+  labs(x='Birth Date',y = '')
+
+ggplotly(p)
+
+
+```
+##Gender
+```{r fig.cap='Gender Distribution', echo=FALSE, warning=FALSE, error=FALSE}
+
+p <- ggplot(data = frame_no_transaction) +
+  geom_bar(mapping = aes(x  = gender)) +
+  labs(x='Gender',y = '')
+
+
+ggplotly(p)
+```
+
+##Number of Dependents
+```{r fig.cap='Number of Dependents', echo=FALSE, warning=FALSE, error=FALSE}
+
+p <- ggplot(data = frame_no_transaction) +
+  geom_bar(mapping = aes(x  = dependants)) +
+  labs(x='dependants',y = '')
+
+
+ggplotly(p)
+```
+
+
+##Region
+```{r fig.cap='Clients by Region', echo=FALSE, warning=FALSE, error=FALSE}
+
+p <- ggplot(data = frame_no_transaction) +
+  geom_bar(mapping = aes(x  = region)) +
+  labs(x='Region',y = '')
+
+
+ggplotly(p)
+```
+
+##Frequency of statements
+```{r fig.cap='Frequency of statements', echo=FALSE, warning=FALSE, error=FALSE}
+
+p <- ggplot(data = frame_no_transaction) +
+  geom_bar(mapping = aes(x  = frequency)) +
+  labs(x='frequency',y = '')
+
+
+ggplotly(p)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

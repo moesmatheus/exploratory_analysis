@@ -1,0 +1,37 @@
+#Loans
+
+```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
+
+library(plotly)
+library(ggplot2)
+
+f <- dplyr::filter(frame_no_transaction, !is.na(status))
+
+```
+
+##Loans Status
+
+```{r fig.cap='Loan Satus', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+p <- ggplot(data = f) +
+  geom_bar(mapping = aes(x  = status) )  +
+  labs(x='Loan Satus',y = '')
+
+ggplotly(p)
+
+
+```
+
+```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+p <- ggplot(data = f) +
+  geom_histogram(mapping = aes(x  = date.y, fill = status),bins = 20, )  +
+  labs(x='Loan Satus',y = '')
+
+ggplotly(p)
+
+
+```
+

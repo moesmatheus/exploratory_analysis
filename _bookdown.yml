@@ -1,5 +1,7 @@
 output_dir: "docs"
 book_filename: "bookdown"
-delete_merged_file: true
+#delete_merged_file: true
 clean: [packages.bib]
-
+language:
+  ui:
+    chapter_name: ""

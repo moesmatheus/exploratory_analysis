@@ -192,6 +192,9 @@ n <- c("district_id","district_name","region","inhabitants","n_size_1",
        "enterpreneurs per 1000 inhabitants","commited crimes '95","commited crimes '96")
 colnames(demographic) <- n
 
+#Calculate inhabitants by region
+#demographic <- left_join(demographic,summarise(group_by(demographic,region), region_inhabitants = sum(inhabitants)), by = 'region')
+
 save(demographic, file = 'processed_files/demographic')
 knitr::kable(demographic[1:10,], caption = 'demographic frame')
 ```

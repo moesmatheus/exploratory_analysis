@@ -78,7 +78,7 @@ ggplotly(p)
 p <- ggplot(data = frame_no_transaction) +
   geom_bar(mapping = aes(x  = region)) +
   labs(x='Region',y = '')+
-  theme(axis.text.x = element_text(size = 7))
+  theme(axis.text.x = element_text(size = 6))
 
 
 ggplotly(p)
@@ -94,7 +94,7 @@ p <- ggplot(
   geom_point(mapping = aes(x  = clients, y = inhabitants/1e3, name = district_name, size = ratio_urban, fill = region ),
              alpha = 0.6) + 
   geom_smooth(method='lm',aes(x  = clients, y = inhabitants/1e3) ) +
-  labs(x='Region',y = 'Inhabitants (thousands)')
+  labs(x='Clients',y = 'Inhabitants (thousands)')
 
 ggplotly(p)
 ```

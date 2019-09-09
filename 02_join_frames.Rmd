@@ -25,7 +25,7 @@ load('processed_files/order')
 #load('processed_files/transaction')
 ```
 
-## Join frames without transactions
+## Join frames without transactions:
 
 
 ```{r echo = FALSE, warning=FALSE}
@@ -50,3 +50,13 @@ save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 
 ```
 
+## Join frames with transactions:
+
+```{r echo = FALSE, warning=FALSE}
+
+# Join previus frame with transactionns
+frame <- transaction %>% left_join(frame_no_transaction, by = 'account_id')
+
+
+save(frame,file = 'processed_files/frame')
+```

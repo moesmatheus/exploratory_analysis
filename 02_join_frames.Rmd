@@ -12,6 +12,7 @@ library(dplyr)
 
 library(lubridate)
 library(magrittr)
+library(dummies)
 
 #Load files
 load('processed_files/account')
@@ -44,10 +45,31 @@ frame_no_transaction <- account %>%
   #Join client
   left_join(client,by = 'client_id') %>%
   #Join card
-  left_join(card, by = 'disp_id')
+  left_join(card, by = 'disp_id') %>%
+  #Join transactions 
+  left_join(
+    transaction %>% group_by(account_id) %>% dplyr::summarise(amount_transactions = sum(amount)),
+    by = 'account_id')
 
 save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 
+```
+
+## Create Clusters
+
+```{r echo = FALSE, warning=FALSE}
+
+cluster <- frame_no_transaction %>% 
+  
+  select(`average salary`, amount_transactions, birth_number, `unemploymant rate '96`, dependants,`enterpreneurs per 1000 inhabitants`  ) %>%
+  
+  cbind(dummy(frame_no_transaction$gender)) %>%
+  
+  cbind(dummy(frame_no_transaction$status)) %>%
+  
+  kmeans(5)# -> frame_no_transaction$cluster
+
+frame_no_transaction$cluster <- cluster$cluster
 ```
 
 ## Join frames with transactions:

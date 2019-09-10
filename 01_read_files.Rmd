@@ -80,7 +80,7 @@ order <- read.csv2("inputs/order.asc",dec = '.')
 #Translate names
 
 plyr::revalue(order$k_symbol, c(
-  "POJISTNE"='insurrance',
+  "POJISTNE"='insurance',
   "SIPO"='household',
   "LEASING"='leasing',
   "UVER"='loan'

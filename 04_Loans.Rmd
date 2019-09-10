@@ -16,7 +16,8 @@ f <- dplyr::filter(frame_no_transaction, !is.na(status))
 
 p <- ggplot(data = f) +
   geom_bar(mapping = aes(x  = status, fill = status) )  +
-  labs(x='Loan Satus',y = '')
+  labs(x='Loan Satus',y = '') + 
+  theme(axis.text.x = element_text(size = 7))
 
 ggplotly(p)
 
@@ -58,7 +59,8 @@ ggplotly(p)
 p <- ggplot(data = mutate(f,age_at_loan = (f$date.y - f$birth_date) / 365)) +
   geom_boxplot(mapping = aes(y  = age_at_loan, x = status, fill = status),bins = 10, )  +
   labs(x='Age at Loan',y = '') +
-  scale_y_continuous()
+  scale_y_continuous() + 
+  theme(axis.text.x = element_text(size = 7))
 
 ggplotly(p)
 

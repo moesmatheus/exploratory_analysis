@@ -1,0 +1,115 @@
+# Transactions
+
+```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
+
+library(plotly)
+library(ggplot2)
+library(lubridate)
+
+
+
+```
+
+
+
+##Amount of transactions anually
+
+The amount of transactions done by the bank is growing continuosly, showing the bank's growth. The majority of those transactions involves physical cash, either withdrawal or credit, and those are the most important drivers in the transaction's growth.
+
+```{r fig.cap='Amount of transactions anually', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+transaction %>% 
+  mutate( date = lubridate::floor_date(date, 'year') ) %>% 
+  group_by(date, operation) %>% 
+  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation!="") %>%
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = operation)) +
+  labs(y='Flow (millions)',x = 'year') -> p
+
+ggplotly(p)
+
+```
+
+##Net transactions amount annualy
+
+We can see that in every year on the time series the net flow of transactions is positive, wich indicates that the bank shouldn't have a liquidity problem.
+
+```{r fig.cap='Net transactions amount annualy', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+transaction %>% 
+  mutate(movement = ifelse(type == 'credit', amount, -amount), date = lubridate::floor_date(date, 'year') ) %>% 
+  group_by(date) %>% 
+  summarise(movement = sum(movement)/1e6) %>%
+ggplot() +
+  geom_col(aes(x=date, y = movement)) +
+    labs(y='Flow (millions)',x = 'year') -> p
+
+ggplotly(p)
+
+```
+
+##Net transactions amount annualy
+
+If we take a closer look to the transactions monthly, we can that on every January and June of every year there is a negative flow of transactions, specially on January. Those negative flows should be a cause for concern to the bank and it should be more cautious on those months.
+
+```{r fig.cap='Net transactions amount monthly', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+transaction %>% 
+  mutate(movement = ifelse(type == 'credit', amount, -amount), date = lubridate::floor_date(date, 'month') ) %>% 
+  group_by(date) %>% 
+  summarise(movement = sum(movement)/1e6) %>%
+ggplot() +
+  geom_col(aes(x=date, y = movement)) +
+    labs(y='Flow (millions)',x = 'month') -> p
+
+ggplotly(p)
+
+```
+
+Looking in the types of transactions we can see that the nagative cash flow is caused by a surge in the number of withdrawals.
+
+```{r fig.cap='Cash Flow Year by Year', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+transaction %>% 
+  mutate( amount = ifelse(type == 'credit', amount, -amount), date = lubridate::floor_date(date, 'month') ) %>% 
+  group_by(date, operation) %>% 
+  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation!="") %>%
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = operation), position = 'identity', alpha = 0.3) +
+  labs(y='Flow (millions)',x = 'year') -> p
+
+ggplotly(p)
+
+```
+
+
+From the products categorized by the bank we can see that household has the fastest growth, even though it and the other products are going through a period of stagnation recently.
+
+```{r fig.cap='Cash Flow Year by Year', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+transaction %>% 
+  mutate( date = lubridate::floor_date(date, 'month') ) %>% 
+  group_by(date, k_symbol) %>% 
+  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(k_symbol!="") %>%
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = k_symbol),position = "identity", alpha = 0.4) +
+  labs(y='Flow (millions)',x = 'year') -> p
+
+ggplotly(p)
+
+```
+
+
+
+
+
+
+
+
+
+

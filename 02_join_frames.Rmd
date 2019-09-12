@@ -67,9 +67,11 @@ cluster <- frame_no_transaction %>%
   
   cbind(dummy(frame_no_transaction$status)) %>%
   
-  kmeans(5)# -> frame_no_transaction$cluster
+  kmeans(4)# -> frame_no_transaction$cluster
 
 frame_no_transaction$cluster <- cluster$cluster
+
+save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 ```
 
 ## Join frames with transactions:

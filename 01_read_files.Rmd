@@ -108,7 +108,9 @@ transaction <- mutate(transaction,date = lubridate::make_date(
 #Translate type
 plyr::revalue(transaction$type, c(
   "PRIJEM"='credit',
-  "VYDAJ"='debit'
+  "VYDAJ"='withdrawal',
+  "VYBER" ='withdrawal'
+  
 )) -> transaction$type
 
 #Translate operation

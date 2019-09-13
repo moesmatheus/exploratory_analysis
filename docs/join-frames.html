@@ -195,17 +195,12 @@ frame_no_transaction &lt;-<span class="st"> </span>account <span class="op">%&gt
 <span class="st">  </span><span class="co">#Join transactions </span>
 <span class="st">  </span><span class="kw">left_join</span>(
     transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">amount_transactions =</span> <span class="kw">sum</span>(amount)),
-    <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)
-
-<span class="kw">save</span>(frame_no_transaction,<span class="dt">file =</span> <span class="st">&#39;processed_files/frame_no_transaction&#39;</span>)</code></pre></div>
+    <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
 </div>
 <div id="join-frames-with-transactions" class="section level2">
 <h2><span class="header-section-number">3.2</span> Join frames with transactions:</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Join previus frame with transactionns</span>
-frame &lt;-<span class="st"> </span>transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(frame_no_transaction, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)
-
-
-<span class="kw">save</span>(frame,<span class="dt">file =</span> <span class="st">&#39;processed_files/frame&#39;</span>)</code></pre></div>
+frame &lt;-<span class="st"> </span>transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(frame_no_transaction, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
 
 </div>
 </div>

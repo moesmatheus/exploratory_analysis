@@ -56,6 +56,10 @@ frame_no_transaction <- account %>%
     transaction %>% group_by(account_id) %>% dplyr::summarise(amount_transactions = sum(amount)),
     by = 'account_id')
 
+```
+
+``` {r echo = FALSE, warning=FALSE}
+
 save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 
 ```
@@ -69,6 +73,8 @@ save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 # Join previus frame with transactionns
 frame <- transaction %>% left_join(frame_no_transaction, by = 'account_id')
 
+```
 
+``` {r echo = FALSE, warning=FALSE}
 save(frame,file = 'processed_files/frame')
 ```

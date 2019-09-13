@@ -10,6 +10,8 @@ load('processed_files/frame_no_transaction')
 ```
 
 ##Birth Date
+
+The majority of the bank's clients were born after the 40s.
 ```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
 
 
@@ -22,6 +24,8 @@ ggplotly(p)
 
 ```
 ##Gender
+
+There is a close distribution betwen male and female clients in the bank.
 ```{r fig.cap='Gender Distribution', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction) +
@@ -33,6 +37,9 @@ ggplotly(p)
 ```
 
 ##Number of Dependents
+
+Most of the bank's clients don't have any depandants on their bank and account and the ones that do, only have one dependant.
+
 ```{r fig.cap='Number of Dependents', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction) +
@@ -44,6 +51,8 @@ ggplotly(p)
 ```
 
 ##Acount creation by time
+
+There was a sharp decrease in accounts created after 1994 and since then ta bank has been recovering from it.
 ```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
 
 
@@ -57,10 +66,10 @@ ggplotly(p)
 ```
 
 ##Age at account creation
+
+The youngest clients that the bank manage to captate are on their late teens when they create their bank account and there is a sharp decrease of account creation after the 60s.
+
 ```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
-
-
-
 
 p <- ggplot(data = mutate(frame_no_transaction,age_at_creation = (frame_no_transaction$date.x - frame_no_transaction$birth_date) / 365)) +
   geom_histogram(mapping = aes(x  = age_at_creation, fill = gender),bins = 10 )  +
@@ -72,7 +81,10 @@ ggplotly(p)
 
 ```
 
-##Region
+##Regions
+
+There is no concentration of clients in any particular region in the country.
+
 ```{r fig.cap='Clients by Region', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction) +
@@ -84,7 +96,7 @@ p <- ggplot(data = frame_no_transaction) +
 ggplotly(p)
 ```
 
-
+Looking closely to number of inhabitants in each region and the number of clients we see that there is a major opportunity for improvement in South Moravia.
 
 ```{r fig.cap='Clients by Region', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -104,6 +116,9 @@ ggplotly(p)
 
 
 ##Frequency of statements
+
+Almost all clients prefer to have their bank statements sent to them monthly.
+
 ```{r fig.cap='Frequency of statements', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction) +
@@ -114,6 +129,8 @@ p <- ggplot(data = frame_no_transaction) +
 ggplotly(p)
 
 ```
+
+No bank client born before the 30s choosed to have its bank statement sent after transaction or weekly.
 
 ```{r fig.cap='Frequency of statements', echo=FALSE, warning=FALSE, error=FALSE}
 

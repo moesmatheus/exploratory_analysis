@@ -84,7 +84,7 @@ Analayzing the number size of loans taken we can see that bigger loans have high
 ```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id))) +
-  geom_boxplot(mapping = aes(y  = amount, x = status, fill = status) )  +
+  geom_boxplot(mapping = aes(y  = amount.x, x = status, fill = status) )  +
   labs(x='Loan Amount',y = '') +
   scale_y_continuous() + 
   theme(axis.text.x = element_text(size = 7))
@@ -98,7 +98,7 @@ The number of outliers preaviusly seen can be explained by the loans with a larg
 
 ```{r fig.cap='Loans status by monthly payment', echo=FALSE, warning=FALSE, error=FALSE}
 
-p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% mutate(parcela = amount/duration)) +
+p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% mutate(parcela = amount.x/duration)) +
   geom_boxplot(mapping = aes(y  = parcela, x = status, fill = status) )  +
   labs(x='monthly payment',y = '') +
   scale_y_continuous() + 
@@ -107,35 +107,5 @@ p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% m
 ggplotly(p)
 ```
 
-## Loans status by clusters
 
-```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
-
-#Filter out lines without loan
-frame_no_transaction %>% dplyr::filter(!is.na(status)) %>%
-  #Group by cluster and status
-  dplyr::group_by(cluster, status) %>% dplyr::summarise(amount_transactions = n()) -> prov
-
-#Plot results
-p <- ggplot(data = prov) +
-  geom_raster(aes(x=cluster, y = status, fill = amount_transactions))
-
-ggplotly(p)
-```
-
-## Loans status by duration
-
-```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
-
-#Filter out lines without loan
-frame_no_transaction %>% dplyr::filter(!is.na(duration)) %>%
-  #Group by cluster and status
-  dplyr::group_by(duration, status) %>% dplyr::summarise(amount_transactions = n()) -> prov
-
-#Plot results
-p <- ggplot(data = prov) +
-  geom_raster(aes(x=duration, y = status, fill = amount_transactions))
-
-ggplotly(p)
-```
 

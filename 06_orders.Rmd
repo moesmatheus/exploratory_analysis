@@ -1,0 +1,15 @@
+#Orders
+##Order types
+```{r fig.cap='Payment Type', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame_no_transaction %>% group_by(k_symbol) %>% summarise(amount = sum(amount.y)/1e6) %>%
+dplyr::filter(!is.na(k_symbol)) %>%
+  ggplot() +
+  geom_col(aes(x = k_symbol, y = amount)) +
+  labs(y='Total Amount (millions)',x = 'Payment Type') -> p
+
+ggplotly(p)
+
+```
+

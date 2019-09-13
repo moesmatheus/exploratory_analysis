@@ -14,7 +14,7 @@ library(lubridate)
 
 ##Amount of transactions anually
 
-The amount of transactions done by the bank is growing continuosly, showing the bank's growth. The majority of those transactions involves physical cash, either withdrawal or credit, and those are the most important drivers in the transaction's growth.
+The amount of transactions done by the bank is growing continuosly, showing the bank's growth. The majority of those transactions involves physical cash, either withdrawal or credit, and those are the most important drivers in the transaction's growth. The share of credit card in the banks transactions is very small.
 
 ```{r fig.cap='Amount of transactions anually', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -50,7 +50,7 @@ ggplotly(p)
 
 ```
 
-##Net transactions amount annualy
+##Net transactions amount monthly
 
 If we take a closer look to the transactions monthly, we can that on every January and June of every year there is a negative flow of transactions, specially on January. Those negative flows should be a cause for concern to the bank and it should be more cautious on those months.
 

@@ -26,16 +26,19 @@ load('processed_files/order')
 #load('processed_files/transaction')
 ```
 
+
+To make calculations easier two combinations were made, one with every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. The other combination included every table and the granularity was the single transaction, it was a join betwen the transactions and the previus combination.
+
 ## Join frames without transactions:
 
 
-```{r echo = FALSE, warning=FALSE}
+```{r echo = TRUE, warning=FALSE}
 
 #Base frame accounts 
 frame_no_transaction <- account %>%
   #Join accounts
   left_join(loan, by = 'account_id') %>%
-  #Join Demographie
+  #Join Demographic
   left_join(demographic, by = 'district_id') %>%
   #Join disposition
   left_join(
@@ -46,6 +49,8 @@ frame_no_transaction <- account %>%
   left_join(client,by = 'client_id') %>%
   #Join card
   left_join(card, by = 'disp_id') %>%
+  #Join order
+  left_join(order, by = 'account_id') %>%
   #Join transactions 
   left_join(
     transaction %>% group_by(account_id) %>% dplyr::summarise(amount_transactions = sum(amount)),
@@ -55,28 +60,11 @@ save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 
 ```
 
-## Create Clusters
 
-```{r echo = FALSE, warning=FALSE}
-
-cluster <- frame_no_transaction %>% 
-  
-  select(`average salary`, amount_transactions, birth_number, `unemploymant rate '96`, dependants,`enterpreneurs per 1000 inhabitants`  ) %>%
-  
-  cbind(dummy(frame_no_transaction$gender)) %>%
-  
-  cbind(dummy(frame_no_transaction$status)) %>%
-  
-  kmeans(4)# -> frame_no_transaction$cluster
-
-frame_no_transaction$cluster <- cluster$cluster
-
-save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
-```
 
 ## Join frames with transactions:
 
-```{r echo = FALSE, warning=FALSE}
+```{r echo = TRUE, warning=FALSE}
 
 # Join previus frame with transactionns
 frame <- transaction %>% left_join(frame_no_transaction, by = 'account_id')

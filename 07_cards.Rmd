@@ -1,0 +1,62 @@
+#Cards
+## Card type
+The majority of the cards issued by the bank are of the classic type.
+
+```{r fig.cap='Card Type', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame_no_transaction %>% group_by(type.y) %>% summarise(n = n()) %>%
+dplyr::filter(type.y!='') %>%
+  ggplot() +
+  geom_col(aes(x = type.y, y = n)) +
+  labs(y='',x = 'Card Type') -> p
+
+ggplotly(p)
+
+```
+
+## Card type issued by year
+There has been an increse in the number of cards issued by the bank pushed mostly by the classic card.
+
+```{r fig.cap='Cards issued by date', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame_no_transaction %>% 
+  mutate( date = lubridate::floor_date(issued, 'year') ) %>% 
+  group_by(date, type.y) %>% 
+  summarise(amount = n()) %>%
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = type.y)) +
+  labs(y='Cards Issued',x = 'Year') -> p
+
+ggplotly(p)
+
+
+```
+
+## Credit card transactions by type
+The growth in the number of credit cards has also been acompanied by a grow in the numbe of transactions done by credit card, mostly in the classic card.
+
+
+```{r fig.cap='Amount of transactions by card type', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame %>% 
+  mutate( date = lubridate::floor_date(date, 'year') ) %>% 
+  group_by(date, operation, type.y) %>% 
+  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation=="credit card withdrawal") %>%
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = type.y)) +
+  labs(y='Transaction Amount (Millions)',x = 'Year') -> p
+
+ggplotly(p)
+
+```
+
+
+
+
+
+
+
+

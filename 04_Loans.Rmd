@@ -30,17 +30,20 @@ ggplotly(p)
 
 ```
 
-We can also see that that the number of loans with some problem does not appear to have a growing tendancy, although we can see that there is a decline in loans being issued by the bank showing some room for improvement. 
+We can also see that that the number of loans with some problem does not appear to have a growing tendancy, although we can see that there is a decline in loans being issued by the bank in 1998 showing some room for improvement. Also in 1997 there was a great number of bad loans, problaby being the caus for the reduction of loans in 1998.
 
 ```{r fig.cap='Loan status by creation date', echo=FALSE, warning=FALSE, error=FALSE}
 
 
-p <- ggplot(data = f) +
-  geom_histogram(mapping = aes(x  = date.y , fill = status),bins = 20, )  +
-  labs(x='Creation Date',y = '')
+frame_no_transaction %>% 
+  mutate( date = lubridate::floor_date(date.y, 'year') ) %>% 
+  group_by(date, status) %>% 
+  summarise(number = n()) %>% #dplyr::filter(operation!="") %>%
+  ggplot() +
+  geom_col(aes(x=date, y = number, fill = status)) +
+  labs(y='Number',x = 'year') -> p
 
 ggplotly(p)
-
 
 ```
 
@@ -112,6 +115,23 @@ p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% m
 
 ggplotly(p)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

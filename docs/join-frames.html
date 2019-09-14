@@ -152,6 +152,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1" data-path="cards.html"><a href="cards.html#card-type"><i class="fa fa-check"></i><b>8.1</b> Card type</a></li>
 <li class="chapter" data-level="8.2" data-path="cards.html"><a href="cards.html#card-type-issued-by-year"><i class="fa fa-check"></i><b>8.2</b> Card type issued by year</a></li>
 <li class="chapter" data-level="8.3" data-path="cards.html"><a href="cards.html#credit-card-transactions-by-type"><i class="fa fa-check"></i><b>8.3</b> Credit card transactions by type</a></li>
+<li class="chapter" data-level="8.4" data-path="cards.html"><a href="cards.html#credit-card-transactions-by-type-1"><i class="fa fa-check"></i><b>8.4</b> Credit card transactions by type</a></li>
+<li class="chapter" data-level="8.5" data-path="cards.html"><a href="cards.html#credit-card-transactions-by-month"><i class="fa fa-check"></i><b>8.5</b> Credit card transactions by month</a></li>
+<li class="chapter" data-level="8.6" data-path="cards.html"><a href="cards.html#amount-of-card-transactions-by-account"><i class="fa fa-check"></i><b>8.6</b> Amount of card transactions by account</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>9</b> Conclusion</a></li>
 </ul>
@@ -173,7 +176,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="join-frames" class="section level1">
 <h1><span class="header-section-number">3</span> Join Frames</h1>
-<p>In order to explore our database, we decided to combine the different tables. This was a two-step process: 1. Aggregate every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. 2. Next step was to join this new table with Transactions, creating a big dataset with all the data. The granularity for this is the single transaction.</p>
+<p>In order to explore our database, we decided to combine the different tables. This was a two-step process:</p>
+<ol style="list-style-type: decimal">
+<li><p>Aggregate every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account.</p></li>
+<li><p>Next step was to join this new table with Transactions, creating a big dataset with all the data. The granularity for this is the single transaction.</p></li>
+</ol>
 <p>With this two new structures we were able to study the data and draw some ideas and conclusions to help the manager.</p>
 <div id="join-frames-without-transactions" class="section level2">
 <h2><span class="header-section-number">3.1</span> Join frames without transactions:</h2>

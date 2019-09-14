@@ -56,6 +56,63 @@ ggplotly(p)
 
 ```
 
+## Credit card transactions by type
+The growth in the number of credit cards has also been acompanied by a grow in the number of transactions done by credit card, mostly in the classic card.
+
+
+```{r fig.cap='Amount of transactions by card type', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame %>% 
+  mutate( date = lubridate::floor_date(date, 'year') ) %>% 
+  group_by(date, operation, type.y) %>% 
+  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation=="credit card withdrawal") %>%
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = type.y)) +
+  labs(y='Transaction Amount (Millions)',x = 'Year') -> p
+
+ggplotly(p)
+
+```
+
+## Credit card transactions by month
+
+As it happends with the amount of transactions there is also a spike in the use of credit cards every year in January, especially amongst the users of the classic card.
+
+```{r fig.cap='Amount of transactions by month', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame %>% 
+  mutate( date = lubridate::floor_date(date, 'month') ) %>% 
+  dplyr::filter(operation=="credit card withdrawal") %>%
+  group_by(date, type.y) %>% 
+  summarise(amount = sum(amount)/1e6) %>% 
+  ggplot() +
+  geom_col(aes(x=date, y = amount, fill = type.y)) +
+  labs(y='Transaction Amount (Millions)',x = 'Month') -> p
+
+ggplotly(p)
+
+```
+
+## Amount of card transactions by account
+
+The gold card has a slightly higher volume of transactions per client then the other cards. Looking at the clients with the classic card we see that there is a great number of outliers regarding the total of transactions with the card, those clients could be updated to the gold card.
+
+```{r fig.cap='Amount of card transactions by account', echo=FALSE, warning=FALSE, error=FALSE}
+
+
+frame %>% 
+  dplyr::filter(operation=="credit card withdrawal") %>%
+  group_by(account_id) %>% 
+  summarise(amount = sum(amount)/1e3, type.y = first(type.y)) %>% 
+  ggplot() +
+    geom_boxplot(aes(x= type.y, y = amount, fill = type.y)) +
+    labs(y='',x = 'Transactions on card by account (Thousands)') -> p
+
+ggplotly(p)
+
+```
 
 
 

@@ -26,8 +26,13 @@ load('processed_files/order')
 #load('processed_files/transaction')
 ```
 
+In order to explore our database, we decided to combine the different tables. 
+This was a two-step process: 
+1. Aggregate every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. 
+2. Next step was to join this new table with Transactions, creating a big dataset with all the data. The granularity for this is the single transaction.
 
-To make calculations easier two combinations were made, one with every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. The other combination included every table and the granularity was the single transaction, it was a join betwen the transactions and the previus combination.
+With this two new structures we were able to study the data and draw some ideas and conclusions to help the manager.
+
 
 ## Join frames without transactions:
 

@@ -1,5 +1,7 @@
 #Loans
 
+Loans are a great source of revenue for the bank, so we look at data for opportunities and outlier patterns.
+
 ```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
 
 library(plotly)
@@ -12,6 +14,8 @@ f <- dplyr::filter(frame_no_transaction, !is.na(status))
 ##Loans Status
 
 The bank currently has a healthy record of loans with the majority of loans finished being paid correctly and less then 15% not being paid back. The current loans are also in good state with the majority of those running without problems and aproximatly 10% with the client in debt.
+
+As the numbers indicate that the credit division is doing well in selecting their clients, it is suggested to extend the possibility of extending this lending to clients with similar profiles to borrowers. Accordingly, we may increase our profits from the volume of such interest.
 
 ```{r fig.cap='Loan Satus', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -79,7 +83,9 @@ ggplotly(p)
 
 ## Loans status by size of loan
 
-Analayzing the number size of loans taken we can see that bigger loans have higher risks. Comparing the loans finished and the ones still running we can see that in both groups there is ones with problems have a higher median value. Also with we can see that ther is a great number of outliers in the analysis.
+Analyzing the number size of loans taken we can see that bigger loans have higher risks. Comparing the loans finished and the ones still running we can see that in both groups there is ones with problems have a higher median value. Also with we can see that ther is a great number of outliers in the analysis.
+
+By this information, is suggested to focus on bigger volumes of small loans, so the bank can make profit from it with less risk.
 
 ```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -94,7 +100,7 @@ ggplotly(p)
 
 ## Loans status by monthly payment
 
-The number of outliers preaviusly seen can be explained by the loans with a larger duration, in an analysis of loan size divided by duration we can see that there are no outliers in the boxplot. That analysis also shows that there are more problems in the loans with the higher monthly payment, so focusing on smaller loans could be a better strategy for the company. An interesting insight is that currently there is no default in the loans with a monthly payment smaller then 1.670 so the bank could be more agressive on those loans.
+The number of outliers preaviously seen can be explained by the loans with a larger duration, in an analysis of loan size divided by duration we can see that there are no outliers in the boxplot. That analysis also shows that there are more problems in the loans with the higher monthly payment, so focusing on smaller loans could be a better strategy for the company. An interesting insight is that currently there is no default in the loans with a monthly payment smaller then 1.670 so the bank could be more agressive on those loans.
 
 ```{r fig.cap='Loans status by monthly payment', echo=FALSE, warning=FALSE, error=FALSE}
 

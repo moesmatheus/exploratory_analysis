@@ -24,7 +24,7 @@
 <meta name="author" content="Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg" />
 
 
-<meta name="date" content="2019-09-13" />
+<meta name="date" content="2019-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -153,6 +153,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="cards.html"><a href="cards.html#card-type-issued-by-year"><i class="fa fa-check"></i><b>8.2</b> Card type issued by year</a></li>
 <li class="chapter" data-level="8.3" data-path="cards.html"><a href="cards.html#credit-card-transactions-by-type"><i class="fa fa-check"></i><b>8.3</b> Credit card transactions by type</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>9</b> Conclusion</a></li>
 </ul>
 
       </nav>
@@ -172,13 +173,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="read-files" class="section level1">
 <h1><span class="header-section-number">2</span> Read Files</h1>
+<p>The first step was to read the files and organize them. In each file, some columns had to be translated and some data reordered to facilitate the exploratory analysis work.</p>
 <div class="figure">
 <img src="dados.png" alt="data" />
 <p class="caption">data</p>
 </div>
 <div id="accounts" class="section level2">
 <h2><span class="header-section-number">2.1</span> Accounts</h2>
-<p>Relation account (4500 objects in the file ACCOUNT.ASC) each record describes static characteristics of an account:</p>
+<p>Here we find the account data. There are 4500 records, each containing information about the account district, frequency of statement issuance, and date of account creation.</p>
+<p>To make the data easier to understand, we translate Czech frequency values into English and separate dates with hyphens.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-4">Table 2.1: </span>accounts frame</caption>
 <thead>
@@ -255,7 +258,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="clients" class="section level2">
 <h2><span class="header-section-number">2.2</span> Clients</h2>
-<p>Relation client (5369 objects in the file CLIENT.ASC) each record describes characteristics of a client:</p>
+<p>The Clients list contains 5369 bank customers, tabulated with the district code and their birthday code - which informs the birthday and gender. For the analysis, we separated the date of birth and gender in separate columns.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-5">Table 2.2: </span>clients frame</caption>
 <thead>
@@ -354,7 +357,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="disposition" class="section level2">
 <h2><span class="header-section-number">2.3</span> Disposition</h2>
-<p>Relation disposition (5369 objects in the file DISP.ASC) each record relates together a client with an account i.e. this relation describes the rights of clients to operate accounts:</p>
+<p>The Disposition relationship contains interactions between customers and accounts, classifying as owner / dependent. Some explanations of possible account-owner-dependency interactions: Every account has an owner and may or may not have dependents. Dependents may own another account. A customer may own more than one account.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-6">Table 2.3: </span>disposition frame</caption>
 <thead>
@@ -431,7 +434,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="order" class="section level2">
 <h2><span class="header-section-number">2.4</span> Order</h2>
-<p>Relation permanent order (6471 objects in the file ORDER.ASC) each record describes characteristics of a payment order:</p>
+<p>List of payment orders issued to accounts. In addition to the money order code and the account code, the records contain information about the bank and account you received, the amount and type of payment (household, insurance, leasing and loan). To make it easier to understand, it was necessary to translate Czech payment types into English.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-7">Table 2.4: </span>order frame</caption>
 <thead>
@@ -530,7 +533,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="transactions" class="section level2">
 <h2><span class="header-section-number">2.5</span> Transactions</h2>
-<p>Relation transaction (1056320 objects in the file TRANS.ASC) each record describes one transaction on an account:</p>
+<p>List of all transactions made by customers, informing: Account that performed the transaction Transaction Date Transaction Type (Inbound and Outbound) Transaction (credit card withdrawl, credit in cash, collection from another bank, withdrawl in cash, remittance to another bank) Amount (transaction amount) Balance after transaction K-symbol (characterization of transaction) Bank (receiving bank) Account (receiving account)</p>
 <table>
 <caption><span id="tab:unnamed-chunk-8">Table 2.5: </span>transaction frame</caption>
 <thead>
@@ -673,7 +676,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="loans" class="section level2">
 <h2><span class="header-section-number">2.6</span> Loans</h2>
-<p>Relation loan (682 objects in the file LOAN.ASC) each record describes a loan granted for a given account:</p>
+<p>Loan list, with 682 occurrences. Each customer can only receive one loan. In the table we have Loan key Account Key Date Value Duration (in months) Installment Payment Amount Status (finished - ok; Finished - not ok; Running - ok; Running - in debt) To make understanding easier during the analysis, we classify the status according to its conditions rather than leaving the original groups A through D from the database.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-9">Table 2.6: </span>loan frame</caption>
 <thead>
@@ -783,7 +786,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="credit-card" class="section level2">
 <h2><span class="header-section-number">2.7</span> Credit Card</h2>
-<p>Relation credit card (892 objects in the file CARD.ASC) each record describes a credit card issued to an account:</p>
+<p>The credit card list contains 892 occurrences and stores the card code, disposition id, card type (junior / classic / gold) and date of issue. Treatment was performed so that the issue date was in the Brazilian model.</p>
 <table>
 <caption><span id="tab:unnamed-chunk-10">Table 2.7: </span>card frame</caption>
 <thead>
@@ -860,7 +863,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="demographic-data" class="section level2">
 <h2><span class="header-section-number">2.8</span> Demographic data</h2>
-<p>Relation demographic data (77 objects in the file DISTRICT.ASC) each record describes demographic characteristics of a district:</p>
+<p>Finally, demographic data records 77 municipalities distributed in the 7 regions of the Czech Republic. The table contains the following elements: District code;</p>
+<p>District name;</p>
+<p>Region;</p>
+<p>Nº of inhabitants</p>
+<p>Nº of municipalities with &lt;499 inhabitants</p>
+<p>Nº of municipalities with 500-1999 inhabitants</p>
+<p>Nº of municipalities with 2000-9999 inhabitants</p>
+<p>Nº of municipalities with&gt; 1000 inhabitants</p>
+<p>Nº of cities</p>
+<p>Proportion of urban inhabitants</p>
+<p>Average Salary</p>
+<p>unemployment rate ‘95</p>
+<p>Unemployment Rate ‘96</p>
+<p>Nº of entrepreneurs per 1000 inhabitants</p>
+<p>Nº of crimes committed in ‘95</p>
+<p>Nº of crimes committed in ‘96</p>
 <table>
 <caption><span id="tab:unnamed-chunk-11">Table 2.8: </span>demographic frame</caption>
 <thead>

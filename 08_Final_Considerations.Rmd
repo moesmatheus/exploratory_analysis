@@ -1,0 +1,30 @@
+---
+title: "08_Conclusion"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Conclusion
+
+The bank has seen growth in customer numbers but there is plenty of room to grow.
+
+There is still little penetration in the different regions of the Czech Republic and the economic climate is very conducive to winning more customers.
+Recommendation: Focus on growth first in South Moravia, where population density is high and the bank does not have many clients yet. Focusing on growth in these regions, we can then expand to the rest of the country.
+Risks: It is important to keep in mind the possible risks of losing room for competitors in other regions.
+
+The bank has a good repayment rate for loans made, especially those with lower values.
+Recommendation: Increase the volume of micro credits, which are performing well and may attract more customers to the bank.
+Risks: As we increase the volume, we increase our default risk, so we need to work directly with the credit bureau to ensure good customer reviews before lending.
+
+A critical point noticed in the analysis is the large amount of withdrawals in July and January, leaving the bank balance negative. It is essential that the bank understands the motivations of customers in these months, to anticipate and not suffer in these months.
+Recommendation: Conduct qualitative customer research to understand this movement. Based on this, structure action paths to minimize impacts.
+Risks: Customers may feel overrun when asked about their movements, so it is important to drive carefully to avoid dissatisfaction with the bank.
+
+Finally, we see a growth in the number of cards issued in recent years, but still with little movement from them.
+Recommendation: Create more incentives for credit card use. This can be done by offering more premium cards and ensuring more credit per user.
+Risks: Because credit cards are not yet part of the Czech Republic's culture, we may have a period of learning how to use the card, which may cause delinquent invoices.
+
+As next steps, we suggest further analysis and exploration of the above points.

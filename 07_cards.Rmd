@@ -2,6 +2,9 @@
 ## Card type
 The majority of the cards issued by the bank are of the classic type.
 
+Since credit cards are not yet widely used by customers, offering premium cards can be a good opportunity to encourage their use.
+
+
 ```{r fig.cap='Card Type', echo=FALSE, warning=FALSE, error=FALSE}
 
 
@@ -35,7 +38,7 @@ ggplotly(p)
 ```
 
 ## Credit card transactions by type
-The growth in the number of credit cards has also been acompanied by a grow in the numbe of transactions done by credit card, mostly in the classic card.
+The growth in the number of credit cards has also been acompanied by a grow in the number of transactions done by credit card, mostly in the classic card.
 
 
 ```{r fig.cap='Amount of transactions by card type', echo=FALSE, warning=FALSE, error=FALSE}

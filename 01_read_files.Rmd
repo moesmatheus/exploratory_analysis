@@ -1,5 +1,7 @@
 #Read Files
 
+The first step was to read the files and organize them. In each file, some columns had to be translated and some data reordered to facilitate the exploratory analysis work.
+
 ```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
@@ -14,7 +16,10 @@ dir.create('processed_files')
 
 ## Accounts
 
-Relation account (4500 objects in the file ACCOUNT.ASC) each record describes static characteristics of an account:
+Here we find the account data. There are 4500 records, each containing information about the account district, frequency of statement issuance, and date of account creation.
+
+To make the data easier to understand, we translate Czech frequency values into English and separate dates with hyphens.
+
 
 ```{r echo = FALSE}
 ### Account frame
@@ -41,7 +46,7 @@ knitr::kable(account[1:10,], caption = 'accounts frame')
 
 ## Clients
 
-Relation client (5369 objects in the file CLIENT.ASC) each record describes characteristics of a client:
+The Clients list contains 5369 bank customers, tabulated with the district code and their birthday code - which informs the birthday and gender. For the analysis, we separated the date of birth and gender in separate columns.
 
 ```{r echo = FALSE}
 #Load csv
@@ -63,7 +68,9 @@ knitr::kable(client[1:10,], caption = 'clients frame')
 
 ## Disposition
 
-Relation disposition (5369 objects in the file DISP.ASC) each record relates together a client with an account i.e. this relation describes the rights of clients to operate accounts:
+The Disposition relationship contains interactions between customers and accounts, classifying as owner / dependent.
+Some explanations of possible account-owner-dependency interactions:
+Every account has an owner and may or may not have dependents. Dependents may own another account. A customer may own more than one account.
 
 ```{r echo = FALSE}
 disposition <- read.csv2("inputs/disp.asc",dec = '.')
@@ -73,7 +80,8 @@ save(disposition, file = 'processed_files/disposition')
 
 ## Order
 
-Relation permanent order (6471 objects in the file ORDER.ASC) each record describes characteristics of a payment order:
+List of payment orders issued to accounts. In addition to the money order code and the account code, the records contain information about the bank and account you received, the amount and type of payment (household, insurance, leasing and loan).
+To make it easier to understand, it was necessary to translate Czech payment types into English.
 
 ```{r echo = FALSE}
 order <- read.csv2("inputs/order.asc",dec = '.')  
@@ -92,7 +100,16 @@ knitr::kable(order[1:10,], caption = 'order frame')
 
 ## Transactions
 
-Relation transaction (1056320 objects in the file TRANS.ASC) each record describes one transaction on an account:
+List of all transactions made by customers, informing:
+Account that performed the transaction
+Transaction Date
+Transaction Type (Inbound and Outbound)
+Transaction (credit card withdrawl, credit in cash, collection from another bank, withdrawl in cash, remittance to another bank)
+Amount (transaction amount)
+Balance after transaction
+K-symbol (characterization of transaction)
+Bank (receiving bank)
+Account (receiving account)
 
 ```{r echo = FALSE}
 
@@ -139,7 +156,15 @@ knitr::kable(transaction[1:10,], caption = 'transaction frame')
 
 ## Loans
 
-Relation loan (682 objects in the file LOAN.ASC) each record describes a loan granted for a given account:
+Loan list, with 682 occurrences. Each customer can only receive one loan. In the table we have
+Loan key
+Account Key
+Date
+Value
+Duration (in months)
+Installment Payment Amount
+Status (finished - ok; Finished - not ok; Running - ok; Running - in debt)
+To make understanding easier during the analysis, we classify the status according to its conditions rather than leaving the original groups A through D from the database.
 
 ```{r echo = FALSE}
 ### Loan frame
@@ -163,7 +188,8 @@ knitr::kable(loan[1:10,], caption = 'loan frame')
 
 ## Credit Card
 
-Relation credit card (892 objects in the file CARD.ASC) each record describes a credit card issued to an account:
+The credit card list contains 892 occurrences and stores the card code, disposition id, card type (junior / classic / gold) and date of issue.
+Treatment was performed so that the issue date was in the Brazilian model.
 
 ```{r echo = FALSE}
 
@@ -182,7 +208,39 @@ knitr::kable(card[1:10,], caption = 'card frame')
 ## Demographic data
 
 
-Relation demographic data (77 objects in the file DISTRICT.ASC) each record describes demographic characteristics of a district:
+Finally, demographic data records 77 municipalities distributed in the 7 regions of the Czech Republic.
+The table contains the following elements:
+District code;
+
+District name;
+
+Region;
+
+Nº of inhabitants
+
+Nº of municipalities with <499 inhabitants
+
+Nº of municipalities with 500-1999 inhabitants
+
+Nº of municipalities with 2000-9999 inhabitants
+
+Nº of municipalities with> 1000 inhabitants
+
+Nº of cities
+
+Proportion of urban inhabitants
+
+Average Salary
+
+unemployment rate ‘95
+
+Unemployment Rate ‘96
+
+Nº of entrepreneurs per 1000 inhabitants
+
+Nº of crimes committed in ‘95
+
+Nº of crimes committed in ‘96
 
 ```{r echo = FALSE, warning=FALSE, error=FALSE }
 

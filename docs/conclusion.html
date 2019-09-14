@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Join Frames | Exploratory Analysis Project</title>
+  <title>9 Conclusion | Exploratory Analysis Project</title>
   <meta name="description" content="This project is part of a lesson from FGV’s MBA on Business Analytics and Big Data." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Join Frames | Exploratory Analysis Project" />
+  <meta property="og:title" content="9 Conclusion | Exploratory Analysis Project" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Join Frames | Exploratory Analysis Project" />
+  <meta name="twitter:title" content="9 Conclusion | Exploratory Analysis Project" />
   
   <meta name="twitter:description" content="This project is part of a lesson from FGV’s MBA on Business Analytics and Big Data." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="read-files.html"/>
-<link rel="next" href="client-profile.html"/>
+<link rel="prev" href="cards.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -171,48 +171,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="join-frames" class="section level1">
-<h1><span class="header-section-number">3</span> Join Frames</h1>
-<p>In order to explore our database, we decided to combine the different tables. This was a two-step process: 1. Aggregate every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. 2. Next step was to join this new table with Transactions, creating a big dataset with all the data. The granularity for this is the single transaction.</p>
-<p>With this two new structures we were able to study the data and draw some ideas and conclusions to help the manager.</p>
-<div id="join-frames-without-transactions" class="section level2">
-<h2><span class="header-section-number">3.1</span> Join frames without transactions:</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Base frame accounts </span>
-frame_no_transaction &lt;-<span class="st"> </span>account <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join accounts</span>
-<span class="st">  </span><span class="kw">left_join</span>(loan, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join Demographic</span>
-<span class="st">  </span><span class="kw">left_join</span>(demographic, <span class="dt">by =</span> <span class="st">&#39;district_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join disposition</span>
-<span class="st">  </span><span class="kw">left_join</span>(
-    dplyr<span class="op">::</span><span class="kw">filter</span>(disposition, type <span class="op">==</span><span class="st"> &#39;OWNER&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">      </span><span class="kw">left_join</span>(disposition <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">dependants =</span> <span class="kw">n</span>()<span class="op">-</span><span class="dv">1</span>), <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)
-    , <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join client</span>
-<span class="st">  </span><span class="kw">left_join</span>(client,<span class="dt">by =</span> <span class="st">&#39;client_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join card</span>
-<span class="st">  </span><span class="kw">left_join</span>(card, <span class="dt">by =</span> <span class="st">&#39;disp_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join order</span>
-<span class="st">  </span><span class="kw">left_join</span>(order, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join transactions </span>
-<span class="st">  </span><span class="kw">left_join</span>(
-    transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">amount_transactions =</span> <span class="kw">sum</span>(amount)),
-    <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
-</div>
-<div id="join-frames-with-transactions" class="section level2">
-<h2><span class="header-section-number">3.2</span> Join frames with transactions:</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Join previus frame with transactionns</span>
-frame &lt;-<span class="st"> </span>transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(frame_no_transaction, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
+<div id="conclusion" class="section level1">
+<h1><span class="header-section-number">9</span> Conclusion</h1>
+<p>The bank has seen growth in customer numbers but there is plenty of room to grow.</p>
+<p>There is still little penetration in the different regions of the Czech Republic and the economic climate is very conducive to winning more customers. Recommendation: Focus on growth first in South Moravia, where population density is high and the bank does not have many clients yet. Focusing on growth in these regions, we can then expand to the rest of the country. Risks: It is important to keep in mind the possible risks of losing room for competitors in other regions.</p>
+<p>The bank has a good repayment rate for loans made, especially those with lower values. Recommendation: Increase the volume of micro credits, which are performing well and may attract more customers to the bank. Risks: As we increase the volume, we increase our default risk, so we need to work directly with the credit bureau to ensure good customer reviews before lending.</p>
+<p>A critical point noticed in the analysis is the large amount of withdrawals in July and January, leaving the bank balance negative. It is essential that the bank understands the motivations of customers in these months, to anticipate and not suffer in these months. Recommendation: Conduct qualitative customer research to understand this movement. Based on this, structure action paths to minimize impacts. Risks: Customers may feel overrun when asked about their movements, so it is important to drive carefully to avoid dissatisfaction with the bank.</p>
+<p>Finally, we see a growth in the number of cards issued in recent years, but still with little movement from them. Recommendation: Create more incentives for credit card use. This can be done by offering more premium cards and ensuring more credit per user. Risks: Because credit cards are not yet part of the Czech Republic’s culture, we may have a period of learning how to use the card, which may cause delinquent invoices.</p>
+<p>As next steps, we suggest further analysis and exploration of the above points.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="read-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="client-profile.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cards.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

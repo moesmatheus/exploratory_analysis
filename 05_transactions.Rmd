@@ -16,6 +16,8 @@ library(lubridate)
 
 The amount of transactions done by the bank is growing continuosly, showing the bank's growth. The majority of those transactions involves physical cash, either withdrawal or credit, and those are the most important drivers in the transaction's growth. The share of credit card in the banks transactions is very small.
 
+This indicates an opportunity of growth from offering more credit cards and making incentives for the clients to use them.
+
 ```{r fig.cap='Amount of transactions anually', echo=FALSE, warning=FALSE, error=FALSE}
 
 

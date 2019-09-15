@@ -37,8 +37,11 @@ knitr::write_bib(c(
 ```
 
 To assist the manager, our team worked with the database in the following steps:
+
 1. Understand, clean and organize data;
+
 2. Search relationships between data;
+
 3. Find product and service opportunities for the bank.
 
 This book is organized according to the steps taken to reach a conclusion about the clients.

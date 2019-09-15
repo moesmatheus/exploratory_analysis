@@ -40,7 +40,7 @@ plyr::revalue(account$frequency, c(
   "POPLATEK PO OBRATU" ="after transaction")) -> account$frequency
 
 save(account,file = 'processed_files/account')
-knitr::kable(account[1:10,], caption = 'accounts frame')
+knitr::kable(account[1:5,], caption = 'accounts frame')
 #datatable(account, rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T) )
 ```
 
@@ -63,7 +63,7 @@ client <- mutate(client, birth_date = lubridate::make_date(
     day =substring(birth_number,5,6)  
 ))
 save(client, file = 'processed_files/client')
-knitr::kable(client[1:10,], caption = 'clients frame')
+knitr::kable(client[1:5,], caption = 'clients frame')
 ```
 
 ## Disposition
@@ -74,7 +74,7 @@ Every account has an owner and may or may not have dependents. Dependents may ow
 
 ```{r echo = FALSE}
 disposition <- read.csv2("inputs/disp.asc",dec = '.')
-knitr::kable(disposition[1:10,], caption = 'disposition frame')
+knitr::kable(disposition[1:5,], caption = 'disposition frame')
 save(disposition, file = 'processed_files/disposition')
 ```
 
@@ -95,7 +95,7 @@ plyr::revalue(order$k_symbol, c(
 )) -> order$k_symbol
 
 save(order, file = 'processed_files/order')
-knitr::kable(order[1:10,], caption = 'order frame')
+knitr::kable(order[1:5,], caption = 'order frame')
 ```
 
 ## Transactions
@@ -151,7 +151,7 @@ plyr::revalue(transaction$k_symbol, c(
 )) -> transaction$k_symbol
 
 save(transaction, file = 'processed_files/transaction')
-knitr::kable(transaction[1:10,], caption = 'transaction frame')
+knitr::kable(transaction[1:5,], caption = 'transaction frame')
 ```
 
 ## Loans
@@ -183,7 +183,7 @@ plyr::revalue(loan$status, c(
 )) -> loan$status
 
 save(loan, file = 'processed_files/loan')
-knitr::kable(loan[1:10,], caption = 'loan frame')
+knitr::kable(loan[1:5,], caption = 'loan frame')
 ```
 
 ## Credit Card
@@ -202,7 +202,7 @@ card <- mutate(card,issued = lubridate::make_date(
   day =substring(issued,5,6)))
 
 save(card, file = 'processed_files/card')
-knitr::kable(card[1:10,], caption = 'card frame')
+knitr::kable(card[1:5,], caption = 'card frame')
 ```
 
 ## Demographic data
@@ -257,6 +257,6 @@ colnames(demographic) <- n
 
 save(demographic, file = 'processed_files/demographic')
 prev <- select(demographic, region, district_name, inhabitants)
-knitr::kable(prev[1:10,], caption = 'demographic frame')
+knitr::kable(prev[1:5,], caption = 'demographic frame')
 ```
 

@@ -1,6 +1,11 @@
 #Orders
 ##Order types
+```{r echo=FALSE, warning=FALSE, error=FALSE, include=FALSE}
 
+library(plotly)
+library(ggplot2)
+
+```
 From the orders segmented by the bank household stands out as the most relevant one. 
 
 Creating special deals for this type of order may be a good opportunity for growing the bank but it's important to analyse if there's still a tendency in this direction. The risk is that this order type was very significant in the last years due to the economic situation of the country (from socialism to capitalism) and maybe from now on other order types will become more relevant for the population.
@@ -14,7 +19,10 @@ dplyr::filter(!is.na(k_symbol)) %>%
   geom_col(aes(x = k_symbol, y = amount)) +
   labs(y='Total Amount (millions)',x = 'Payment Type') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
-
+}
 ```
 

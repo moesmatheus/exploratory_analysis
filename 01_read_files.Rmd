@@ -104,7 +104,7 @@ List of all transactions made by customers, informing:
 Account that performed the transaction
 Transaction Date
 Transaction Type (Inbound and Outbound)
-Transaction (credit card withdrawl, credit in cash, collection from another bank, withdrawl in cash, remittance to another bank)
+Transaction (credit card withdrawal, credit in cash, collection from another bank, withdrawal in cash, remittance to another bank)
 Amount (transaction amount)
 Balance after transaction
 K-symbol (characterization of transaction)
@@ -210,6 +210,7 @@ knitr::kable(card[1:5,], caption = 'card frame')
 
 Finally, demographic data records 77 municipalities distributed in the 7 regions of the Czech Republic.
 The table contains the following elements:
+
 District code;
 
 District name;
@@ -248,8 +249,8 @@ demographic <- read.csv2("inputs/district.asc",dec = '.')
 #Change col names
 n <- c("district_id","district_name","region","inhabitants","n_size_1",
        "n_size_2","n_size_3","n_size_4","n_cities","ratio of urban inhabitants",
-       "average salary","unemploymant rate '95","unemploymant rate '96",
-       "enterpreneurs per 1000 inhabitants","commited crimes '95","commited crimes '96")
+       "average salary","unemployment rate '95","unemployment rate '96",
+       "entrepreneurs per 1000 inhabitants","committed crimes '95","committed crimes '96")
 colnames(demographic) <- n
 
 #Calculate inhabitants by region

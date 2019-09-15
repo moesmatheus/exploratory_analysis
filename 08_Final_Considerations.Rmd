@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Conclusion
+#Conclusion
 
 The bank has seen growth in customer numbers but there is plenty of room to grow.
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg" />
 
 
-<meta name="date" content="2019-09-14" />
+<meta name="date" content="2019-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,20 +129,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="client-profile.html"><a href="client-profile.html#birth-date"><i class="fa fa-check"></i><b>4.1</b> Birth Date</a></li>
 <li class="chapter" data-level="4.2" data-path="client-profile.html"><a href="client-profile.html#gender"><i class="fa fa-check"></i><b>4.2</b> Gender</a></li>
 <li class="chapter" data-level="4.3" data-path="client-profile.html"><a href="client-profile.html#number-of-dependents"><i class="fa fa-check"></i><b>4.3</b> Number of Dependents</a></li>
-<li class="chapter" data-level="4.4" data-path="client-profile.html"><a href="client-profile.html#acount-creation-by-time"><i class="fa fa-check"></i><b>4.4</b> Acount creation by time</a></li>
+<li class="chapter" data-level="4.4" data-path="client-profile.html"><a href="client-profile.html#account-creation-by-time"><i class="fa fa-check"></i><b>4.4</b> Account creation by time</a></li>
 <li class="chapter" data-level="4.5" data-path="client-profile.html"><a href="client-profile.html#age-at-account-creation"><i class="fa fa-check"></i><b>4.5</b> Age at account creation</a></li>
 <li class="chapter" data-level="4.6" data-path="client-profile.html"><a href="client-profile.html#regions"><i class="fa fa-check"></i><b>4.6</b> Regions</a></li>
 <li class="chapter" data-level="4.7" data-path="client-profile.html"><a href="client-profile.html#frequency-of-statements"><i class="fa fa-check"></i><b>4.7</b> Frequency of statements</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="loans-1.html"><a href="loans-1.html"><i class="fa fa-check"></i><b>5</b> Loans</a><ul>
 <li class="chapter" data-level="5.1" data-path="loans-1.html"><a href="loans-1.html#loans-status"><i class="fa fa-check"></i><b>5.1</b> Loans Status</a></li>
-<li class="chapter" data-level="5.2" data-path="loans-1.html"><a href="loans-1.html#age-distributions-of-loans"><i class="fa fa-check"></i><b>5.2</b> Age distributions of loans</a></li>
+<li class="chapter" data-level="5.2" data-path="loans-1.html"><a href="loans-1.html#age-distributions-of-loan"><i class="fa fa-check"></i><b>5.2</b> Age distributions of loan</a></li>
 <li class="chapter" data-level="5.3" data-path="loans-1.html"><a href="loans-1.html#loans-status-by-size-of-loan"><i class="fa fa-check"></i><b>5.3</b> Loans status by size of loan</a></li>
 <li class="chapter" data-level="5.4" data-path="loans-1.html"><a href="loans-1.html#loans-status-by-monthly-payment"><i class="fa fa-check"></i><b>5.4</b> Loans status by monthly payment</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="transactions-1.html"><a href="transactions-1.html"><i class="fa fa-check"></i><b>6</b> Transactions</a><ul>
-<li class="chapter" data-level="6.1" data-path="transactions-1.html"><a href="transactions-1.html#amount-of-transactions-anually"><i class="fa fa-check"></i><b>6.1</b> Amount of transactions anually</a></li>
-<li class="chapter" data-level="6.2" data-path="transactions-1.html"><a href="transactions-1.html#net-transactions-amount-annualy"><i class="fa fa-check"></i><b>6.2</b> Net transactions amount annualy</a></li>
+<li class="chapter" data-level="6.1" data-path="transactions-1.html"><a href="transactions-1.html#amount-of-transactions-annually"><i class="fa fa-check"></i><b>6.1</b> Amount of transactions annually</a></li>
+<li class="chapter" data-level="6.2" data-path="transactions-1.html"><a href="transactions-1.html#net-transactions-amount-annually"><i class="fa fa-check"></i><b>6.2</b> Net transactions amount annually</a></li>
 <li class="chapter" data-level="6.3" data-path="transactions-1.html"><a href="transactions-1.html#net-transactions-amount-monthly"><i class="fa fa-check"></i><b>6.3</b> Net transactions amount monthly</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="orders.html"><a href="orders.html"><i class="fa fa-check"></i><b>7</b> Orders</a><ul>
@@ -178,7 +178,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">3</span> Join Frames</h1>
 <p>In order to explore our database, we decided to combine the different tables. This was a two-step process:</p>
 <ol style="list-style-type: decimal">
-<li><p>Aggregate every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account.</p></li>
+<li><p>Aggregate every table but the transactions in which the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account.</p></li>
 <li><p>Next step was to join this new table with Transactions, creating a big dataset with all the data. The granularity for this is the single transaction.</p></li>
 </ol>
 <p>With this two new structures we were able to study the data and draw some ideas and conclusions to help the manager.</p>
@@ -193,7 +193,8 @@ frame_no_transaction &lt;-<span class="st"> </span>account <span class="op">%&gt
 <span class="st">  </span><span class="co">#Join disposition</span>
 <span class="st">  </span><span class="kw">left_join</span>(
     dplyr<span class="op">::</span><span class="kw">filter</span>(disposition, type <span class="op">==</span><span class="st"> &#39;OWNER&#39;</span> ) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">      </span><span class="kw">left_join</span>(disposition <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">dependants =</span> <span class="kw">n</span>()<span class="op">-</span><span class="dv">1</span>), <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)
+<span class="st">      </span><span class="kw">left_join</span>(disposition <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                  </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">dependents =</span> <span class="kw">n</span>()<span class="op">-</span><span class="dv">1</span>), <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)
     , <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#Join client</span>
 <span class="st">  </span><span class="kw">left_join</span>(client,<span class="dt">by =</span> <span class="st">&#39;client_id&#39;</span>) <span class="op">%&gt;%</span>
@@ -203,13 +204,15 @@ frame_no_transaction &lt;-<span class="st"> </span>account <span class="op">%&gt
 <span class="st">  </span><span class="kw">left_join</span>(order, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#Join transactions </span>
 <span class="st">  </span><span class="kw">left_join</span>(
-    transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">amount_transactions =</span> <span class="kw">sum</span>(amount)),
+    transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span>
+<span class="st">      </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(<span class="dt">amount_transactions =</span> <span class="kw">sum</span>(amount)),
     <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
 </div>
 <div id="join-frames-with-transactions" class="section level2">
 <h2><span class="header-section-number">3.2</span> Join frames with transactions:</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Join previus frame with transactionns</span>
-frame &lt;-<span class="st"> </span>transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(frame_no_transaction, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Join previous frame with transactions</span>
+frame &lt;-<span class="st"> </span>transaction <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(frame_no_transaction, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>)</code></pre></div>
 
 </div>
 </div>

@@ -29,7 +29,7 @@ load('processed_files/order')
 In order to explore our database, we decided to combine the different tables. 
 This was a two-step process: 
 
-1. Aggregate every table but the transactions in wich the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. 
+1. Aggregate every table but the transactions in which the granularity was the account, the clients were agregated to show only the account owner and the number of the dependants in the account. 
 
 2. Next step was to join this new table with Transactions, creating a big dataset with all the data. The granularity for this is the single transaction.
 
@@ -50,7 +50,8 @@ frame_no_transaction <- account %>%
   #Join disposition
   left_join(
     dplyr::filter(disposition, type == 'OWNER' ) %>% 
-      left_join(disposition %>% group_by(account_id) %>% dplyr::summarise(dependants = n()-1), by = 'account_id')
+      left_join(disposition %>% group_by(account_id) %>% 
+                  dplyr::summarise(dependents = n()-1), by = 'account_id')
     , by = 'account_id') %>%
   #Join client
   left_join(client,by = 'client_id') %>%
@@ -60,7 +61,8 @@ frame_no_transaction <- account %>%
   left_join(order, by = 'account_id') %>%
   #Join transactions 
   left_join(
-    transaction %>% group_by(account_id) %>% dplyr::summarise(amount_transactions = sum(amount)),
+    transaction %>% group_by(account_id) %>%
+      dplyr::summarise(amount_transactions = sum(amount)),
     by = 'account_id')
 
 ```
@@ -77,8 +79,9 @@ save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 
 ```{r echo = TRUE, warning=FALSE}
 
-# Join previus frame with transactionns
-frame <- transaction %>% left_join(frame_no_transaction, by = 'account_id')
+# Join previous frame with transactions
+frame <- transaction %>%
+  left_join(frame_no_transaction, by = 'account_id')
 
 ```
 

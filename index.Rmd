@@ -34,6 +34,8 @@ Find product and service opportunities for the bank.
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
+
+pdf <- FALSE
 ```
 
 To assist the manager, our team worked with the database in the following steps:

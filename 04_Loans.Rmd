@@ -17,20 +17,24 @@ The bank currently has a healthy record of loans with the majority of loans fini
 
 As the numbers indicate that the credit division is doing well in selecting their clients, it is suggested to extend the possibility of extending this lending to clients with similar profiles to borrowers. Accordingly, we may increase our profits from the volume of such interest.
 
-```{r fig.cap='Loan Satus', echo=FALSE, warning=FALSE, error=FALSE}
+```{r fig.cap='Loan Status', echo=FALSE, warning=FALSE, error=FALSE}
 
 
 p <- ggplot(data = f) +
   geom_bar(mapping = aes(x  = status, fill = status) )  +
-  labs(x='Loan Satus',y = '') + 
+  labs(x='Loan Status',y = '') + 
   theme(axis.text.x = element_text(size = 7))
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 
 ```
 
-We can also see that that the number of loans with some problem does not appear to have a growing tendancy, although we can see that there is a decline in loans being issued by the bank in 1998 showing some room for improvement. Also in 1997 there was a great number of bad loans, problaby being the caus for the reduction of loans in 1998.
+We can also see that that the number of loans with some problem does not appear to have a growing tendency, although we can see that there is a decline in loans being issued by the bank in 1998 showing some room for improvement. Also in 1997 there was a great number of bad loans, problaby being the caus for the reduction of loans in 1998.
 
 ```{r fig.cap='Loan status by creation date', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -41,17 +45,21 @@ frame_no_transaction %>%
   summarise(number = n()) %>% #dplyr::filter(operation!="") %>%
   ggplot() +
   geom_col(aes(x=date, y = number, fill = status)) +
-  labs(y='Number',x = 'year') -> p
+  labs(y='Number',x = 'Year') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 ```
 
-## Age distributions of loans
+##Age distributions of loan
 
-We can see that the bank spreads its loan through different age groups with the bulk of loans ocurring from the 20s to the late 50s of its costumers and there is no major concentration of bad loans in any age group.
+We can see that the bank spreads its loan through different age groups with the bulk of loans occurring from the 20s to the late 50s of its costumers and there is no major concentration of bad loans in any age group.
 
-```{r fig.cap='Loans by birth date', echo=FALSE, warning=FALSE, error=FALSE}
+```{r fig.cap='Loans by age at loan', echo=FALSE, warning=FALSE, error=FALSE}
 
 
 p <- ggplot(data = mutate(f,age_at_loan = (f$date.y - f$birth_date) / 365)) +
@@ -59,12 +67,16 @@ p <- ggplot(data = mutate(f,age_at_loan = (f$date.y - f$birth_date) / 365)) +
   labs(x='Age at Loan',y = '') +
   scale_x_continuous()
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 
 ```
 
-By the Bloxplot we can confirm the same conclusions with the addition that loans finished and not payed happened more with slighlty older people than the others.
+By the Boxplot we can confirm the same conclusions with the addition that loans finished and not payed happened more with slighlty older people than the others.
 
 ```{r fig.cap='Boxplot loans by birth date', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -73,47 +85,59 @@ By the Bloxplot we can confirm the same conclusions with the addition that loans
 
 p <- ggplot(data = mutate(f,age_at_loan = (f$date.y - f$birth_date) / 365)) +
   geom_boxplot(mapping = aes(y  = age_at_loan, x = status, fill = status),bins = 10, )  +
-  labs(x='Age at Loan',y = '') +
+  labs(x='Status',y = 'Age at Loan') +
   scale_y_continuous() + 
   theme(axis.text.x = element_text(size = 7))
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 
 ```
 
 
 
-## Loans status by size of loan
+##Loans status by size of loan
 
 Analyzing the number size of loans taken we can see that bigger loans have higher risks. Comparing the loans finished and the ones still running we can see that in both groups there is ones with problems have a higher median value. Also with we can see that ther is a great number of outliers in the analysis.
 
 By this information, is suggested to focus on bigger volumes of small loans, so the bank can make profit from it with less risk.
 
-```{r fig.cap='Distribution of birth date', echo=FALSE, warning=FALSE, error=FALSE}
+```{r fig.cap='Loan Status by Loan amount', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id))) +
   geom_boxplot(mapping = aes(y  = amount.x, x = status, fill = status) )  +
-  labs(x='Loan Amount',y = '') +
+  labs(x='Status',y = 'Loan Amount') +
   scale_y_continuous() + 
   theme(axis.text.x = element_text(size = 7))
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 ```
 
-## Loans status by monthly payment
+##Loans status by monthly payment
 
-The number of outliers preaviously seen can be explained by the loans with a larger duration, in an analysis of loan size divided by duration we can see that there are no outliers in the boxplot. That analysis also shows that there are more problems in the loans with the higher monthly payment, so focusing on smaller loans could be a better strategy for the company. An interesting insight is that currently there is no default in the loans with a monthly payment smaller then 1.670 so the bank could be more agressive on those loans.
+The number of outliers previously seen can be explained by the loans with a larger duration, in an analysis of loan size divided by duration we can see that there are no outliers in the boxplot. That analysis also shows that there are more problems in the loans with the higher monthly payment, so focusing on smaller loans could be a better strategy for the company. An interesting insight is that currently there is no default in the loans with a monthly payment smaller then 1.670 so the bank could be more agressive on those loans.
 
 ```{r fig.cap='Loans status by monthly payment', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% mutate(parcela = amount.x/duration)) +
   geom_boxplot(mapping = aes(y  = parcela, x = status, fill = status) )  +
-  labs(x='monthly payment',y = '') +
+  labs(x='Status',y = 'monthly payment') +
   scale_y_continuous() + 
   theme(axis.text.x = element_text(size = 7))
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 ```
 
 

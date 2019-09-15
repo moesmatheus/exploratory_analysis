@@ -12,13 +12,13 @@ library(lubridate)
 
 
 
-##Amount of transactions anually
+##Amount of transactions annually
 
-The amount of transactions done by the bank is growing continuosly, showing the bank's growth. The majority of those transactions involves physical cash, either withdrawal or credit, and those are the most important drivers in the transaction's growth. The share of credit card in the banks transactions is very small.
+The amount of transactions done by the bank is growing continuously, showing the bank's growth. The majority of those transactions involves physical cash, either withdrawal or credit, and those are the most important drivers in the transaction's growth. The share of credit card in the banks transactions is very small.
 
 This indicates an opportunity of growth from offering more credit cards and making incentives for the clients to use them.
 
-```{r fig.cap='Amount of transactions anually', echo=FALSE, warning=FALSE, error=FALSE}
+```{r fig.cap='Amount of transactions annually', echo=FALSE, warning=FALSE, error=FALSE}
 
 
 transaction %>% 
@@ -27,17 +27,21 @@ transaction %>%
   summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation!="") %>%
   ggplot() +
   geom_col(aes(x=date, y = amount, fill = operation)) +
-  labs(y='Flow (millions)',x = 'year') -> p
+  labs(y='Total transactions (millions)',x = 'Year') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 ```
 
-##Net transactions amount annualy
+##Net transactions amount annually
 
-We can see that in every year on the time series the net flow of transactions is positive, wich indicates that the bank shouldn't have a liquidity problem.
+We can see that in every year on the time series the net flow of transactions is positive, which indicates that the bank shouldn't have a liquidity problem.
 
-```{r fig.cap='Net transactions amount annualy', echo=FALSE, warning=FALSE, error=FALSE}
+```{r fig.cap='Net transactions amount annually', echo=FALSE, warning=FALSE, error=FALSE}
 
 
 transaction %>% 
@@ -46,9 +50,13 @@ transaction %>%
   summarise(movement = sum(movement)/1e6) %>%
 ggplot() +
   geom_col(aes(x=date, y = movement)) +
-    labs(y='Flow (millions)',x = 'year') -> p
+    labs(y='Cash Flow (millions)',x = 'Year') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 ```
 
@@ -65,13 +73,17 @@ transaction %>%
   summarise(movement = sum(movement)/1e6) %>%
 ggplot() +
   geom_col(aes(x=date, y = movement)) +
-    labs(y='Flow (millions)',x = 'month') -> p
+    labs(y='Cash Flow (millions)',x = 'Month') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 ```
 
-Looking in the types of transactions we can see that the nagative cash flow is caused by a surge in the number of withdrawals.
+Looking in the types of transactions we can see that the negative cash flow is caused by a surge in the number of withdrawals.
 
 ```{r fig.cap='Cash Flow Year by Year', echo=FALSE, warning=FALSE, error=FALSE}
 
@@ -82,9 +94,13 @@ transaction %>%
   summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation!="") %>%
   ggplot() +
   geom_col(aes(x=date, y = amount, fill = operation), position = 'identity', alpha = 0.3) +
-  labs(y='Flow (millions)',x = 'year') -> p
+  labs(y='Cash Flow (millions)',x = 'Year') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 ```
 
@@ -100,9 +116,13 @@ transaction %>%
   summarise(amount = sum(amount)/1e6) %>% dplyr::filter(k_symbol!="") %>%
   ggplot() +
   geom_col(aes(x=date, y = amount, fill = k_symbol),position = "identity", alpha = 0.4) +
-  labs(y='Flow (millions)',x = 'year') -> p
+  labs(y='Total transactions (millions)',x = 'Year') -> p
 
+if (pdf){
+  p
+} else {
 ggplotly(p)
+}
 
 ```
 

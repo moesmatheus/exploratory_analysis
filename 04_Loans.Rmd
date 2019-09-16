@@ -109,7 +109,7 @@ By this information, is suggested to focus on bigger volumes of small loans, so 
 ```{r fig.cap='Loan Status by Loan amount', echo=FALSE, warning=FALSE, error=FALSE}
 
 p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id))) +
-  geom_boxplot(mapping = aes(y  = amount.x, x = status, fill = status) )  +
+  geom_boxplot(mapping = aes(y  = amount, x = status, fill = status) )  +
   labs(x='Status',y = 'Loan Amount') +
   scale_y_continuous() + 
   theme(axis.text.x = element_text(size = 7))
@@ -127,7 +127,7 @@ The number of outliers previously seen can be explained by the loans with a larg
 
 ```{r fig.cap='Loans status by monthly payment', echo=FALSE, warning=FALSE, error=FALSE}
 
-p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% mutate(parcela = amount.x/duration)) +
+p <- ggplot(data = frame_no_transaction %>% dplyr::filter(!is.na(loan_id)) %>% mutate(parcela = amount/duration)) +
   geom_boxplot(mapping = aes(y  = parcela, x = status, fill = status) )  +
   labs(x='Status',y = 'monthly payment') +
   scale_y_continuous() + 

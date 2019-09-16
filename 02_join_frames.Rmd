@@ -57,8 +57,6 @@ frame_no_transaction <- account %>%
   left_join(client,by = 'client_id') %>%
   #Join card
   left_join(card, by = 'disp_id') %>%
-  #Join order
-  left_join(order, by = 'account_id') %>%
   #Join transactions 
   left_join(
     transaction %>% group_by(account_id) %>%
@@ -68,6 +66,8 @@ frame_no_transaction <- account %>%
 ```
 
 ``` {r echo = FALSE, warning=FALSE}
+#Join order
+frame_order <- left_join(frame_no_transaction,order, by = 'account_id') 
 
 save(frame_no_transaction,file = 'processed_files/frame_no_transaction')
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg" />
 
 
-<meta name="date" content="2019-09-15" />
+<meta name="date" content="2019-09-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -200,8 +200,6 @@ frame_no_transaction &lt;-<span class="st"> </span>account <span class="op">%&gt
 <span class="st">  </span><span class="kw">left_join</span>(client,<span class="dt">by =</span> <span class="st">&#39;client_id&#39;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#Join card</span>
 <span class="st">  </span><span class="kw">left_join</span>(card, <span class="dt">by =</span> <span class="st">&#39;disp_id&#39;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="co">#Join order</span>
-<span class="st">  </span><span class="kw">left_join</span>(order, <span class="dt">by =</span> <span class="st">&#39;account_id&#39;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#Join transactions </span>
 <span class="st">  </span><span class="kw">left_join</span>(
     transaction <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(account_id) <span class="op">%&gt;%</span>

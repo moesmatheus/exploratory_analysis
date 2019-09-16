@@ -55,7 +55,7 @@ The growth in the number of credit cards has also been accompanied by a grow in 
 frame %>% 
   mutate( date = lubridate::floor_date(date, 'year') ) %>% 
   group_by(date, operation, type.y) %>% 
-  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation=="credit card withdrawal") %>%
+  summarise(amount = sum(amount.x)/1e6) %>% dplyr::filter(operation=="credit card withdrawal") %>%
   ggplot() +
   geom_col(aes(x=date, y = amount, fill = type.y)) +
   labs(y='Transaction Amount (Millions)',x = 'Year') -> p
@@ -78,7 +78,7 @@ The growth in the number of credit cards has also been accompanied by a grow in 
 frame %>% 
   mutate( date = lubridate::floor_date(date, 'year') ) %>% 
   group_by(date, operation, type.y) %>% 
-  summarise(amount = sum(amount)/1e6) %>% dplyr::filter(operation=="credit card withdrawal") %>%
+  summarise(amount = sum(amount.x)/1e6) %>% dplyr::filter(operation=="credit card withdrawal") %>%
   ggplot() +
   geom_col(aes(x=date, y = amount, fill = type.y)) +
   labs(y='Transaction Amount (Millions)',x = 'Year') -> p
@@ -102,7 +102,7 @@ frame %>%
   mutate( date = lubridate::floor_date(date, 'month') ) %>% 
   dplyr::filter(operation=="credit card withdrawal") %>%
   group_by(date, type.y) %>% 
-  summarise(amount = sum(amount)/1e6) %>% 
+  summarise(amount = sum(amount.x)/1e6) %>% 
   ggplot() +
   geom_col(aes(x=date, y = amount, fill = type.y)) +
   labs(y='Transaction Amount (Millions)',x = 'Month') -> p
@@ -125,7 +125,7 @@ The gold card has a slightly higher volume of transactions per client then the o
 frame %>% 
   dplyr::filter(operation=="credit card withdrawal") %>%
   group_by(account_id) %>% 
-  summarise(amount = sum(amount)/1e3, type.y = first(type.y)) %>% 
+  summarise(amount = sum(amount.x)/1e3, type.y = first(type.y)) %>% 
   ggplot() +
     geom_boxplot(aes(x= type.y, y = amount, fill = type.y)) +
     labs(y='',x = 'Transactions on card by account (Thousands)') -> p

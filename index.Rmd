@@ -15,12 +15,9 @@ This project is part of the Exploratory Data Analysis discipline of the Getulio 
 Members of the group: Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg
 
 Context and objective
-The manager of a Czech bank wants to get a better understanding on his clients. To do so, it has an extensive database that records customers and their transactions as follows:
+The manager of a Czech bank wants to get a better understanding on his clients. To do so, it has an extensive database that records customers and their transactions.
 
-To assist the manager, our team works with the database in the following steps:
-Understand, clean and organize data;
-Search relationships between data;
-Find product and service opportunities for the bank.
+
 
 ```{r include = FALSE}
 #install.packages("bookdown")

@@ -35,7 +35,7 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 
-pdf <- FALSE
+pdf <- TRUE
 ```
 
 To assist the manager, our team worked with the database in the following steps:

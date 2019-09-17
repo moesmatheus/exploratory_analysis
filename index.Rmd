@@ -11,11 +11,21 @@ description: "This project is part of a lesson from FGV's MBA on Business Analyt
 
 #Introduction
 
-This project is part of the Exploratory Data Analysis discipline of the Getulio Vargas Foundation in Business Analytics and Big Data MBA.
-Members of the group: Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes N. Georg
+This project is part of the Exploratory Data Analysis discipline in Fundação Getúlio Vargas’s Business Analytics and Big Data MBA. Members of the group: Matheus Amaral Mões, Marcelo Semerene Farah, Luísa Belus Henriques and Daniela de Góes Nogueira Georg.
 
-Context and objective
+Context and Objective
+
 The manager of a Czech bank wants to get a better understanding on his clients. To do so, it has an extensive database that records customers and their transactions.
+
+To assist the manager, our team worked with the database in the following steps:
+
+1. Understand, clean and organize data;
+
+2. Search relationships between data;
+
+3. Find products and service opportunities for the bank.
+
+This book is organized according to the steps taken to reach a conclusion about the clients.
 
 
 
@@ -32,15 +42,6 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 
-pdf <- TRUE
+pdf <- FALSE
 ```
 
-To assist the manager, our team worked with the database in the following steps:
-
-1. Understand, clean and organize data;
-
-2. Search relationships between data;
-
-3. Find product and service opportunities for the bank.
-
-This book is organized according to the steps taken to reach a conclusion about the clients.
